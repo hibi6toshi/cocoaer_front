@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Article } from "../../types";
+import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
 
 interface ArticleCardProps {
   article: Article
@@ -28,16 +29,22 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       {/* <img className="w-full" src="/"> */}
       <div className="px-6 py-4">
         <div className="font-bold mb-2">{article.title}</div>
-        <hr />
+        {article.picture ?
+          <img src={article.picture.url} className="rounded-md mb-2" alt="thumbnail" />
+          : 
+          null
+        }
         <p className="text-base break-all h-24 overflow-hidden">
           {article.body}
         </p>
       </div>
-      {/* <div className="px-6 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
-      </div> */}
+      <div className="px-6 pb-2">
+        <OptionalInfo 
+          piety_category_id={article.piety_category_id}
+          piety_target_id={article.piety_target_id}
+          days={article.days}
+        />
+      </div>
     </div>
    );
 }

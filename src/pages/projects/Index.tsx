@@ -15,7 +15,7 @@ const IndexPage = () => {
     <>
       <div>ProjectsIndexPage</div> 
       <div className="
-        max-w-2xl
+        max-w-4xl
         mx-auto
         grid
         grid-cols-1

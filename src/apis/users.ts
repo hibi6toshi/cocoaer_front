@@ -9,6 +9,7 @@ export const createUser = async(token: string, user: User) => {
       'Content-Type': 'application/json',
     }
   }
+
   const data = {
     name: user?.name,
     picture: user?.picture
@@ -18,8 +19,7 @@ export const createUser = async(token: string, user: User) => {
     data,
     headers 
   ).then(res => {
-    // return res.data
-    console.log(res.data)
+    return res.data.data
   })
   .catch((e: any) => console.error(e))
 }

@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Forum } from "../../types";
+import useCategorys from "../../hooks/useCategorys";
+import useTargets from "../../hooks/useTargets";
+import UserMiniInfo from "../../components/Users/UserMiniInfo";
 
 interface ForumCardProps {
   forum: Forum;
@@ -9,8 +12,10 @@ const ForumCard: React.FC<ForumCardProps> = ({
   forum
 }) => {
   const navigate = useNavigate();
+  const { getCategoryName } = useCategorys();
+  const { getTargetName } = useTargets();
 
-  return ( 
+  return (
     <div
       onClick={()=>navigate(`/forums/${forum.id}`)} 
       className="
@@ -33,13 +38,13 @@ const ForumCard: React.FC<ForumCardProps> = ({
           {forum.title}
         </div>
         <div className="row-span-1">
-          {forum.user.id}
+          <UserMiniInfo user={forum.user} />
         </div>
       </div>
       <div className="col-span-1 mx-4">
-        <div>{ forum.days }</div>
-        <div>{ forum.piety_target_id }</div>
-        <div>{ forum.piety_category_id }</div>
+        <div>{ forum.days }日</div>
+        <div>{ getTargetName(forum.piety_target_id) }</div>
+        <div>{ getCategoryName(forum.piety_category_id) }</div>
       </div>
     </div>
    );

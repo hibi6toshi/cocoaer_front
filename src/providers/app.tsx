@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { AppState, Auth0Provider, User } from '@auth0/auth0-react';
 import { RouterProvider } from 'react-router-dom';
 import { appRoutes } from '../routes';
+import PietyCategoryProvider from './PietyCategoryProvider';
+import PietyTargetProvider from './PietyTargetProvider';
+import UserProvider from './UserProvider';
 
 const domain: string = process.env.REACT_APP_AUTH0_DOMAIN || ''
 const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID || ''
@@ -23,18 +26,31 @@ const ErrorFallback = () => {
 };
 
 export const AppProvider = () => {
+
+  const onRedirectCallback = (appState?: AppState, user?: User)  => {
+    console.log(appState);
+    window.location.href = (appState?.returnTo || window.location.pathname);
+  };
+
   return (
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Auth0Provider
-          domain={domain}
-          clientId={clientId}
-          authorizationParams={{ 
-            redirect_uri: window.location.origin,
-            audience: audience,
-          }}
-        >
-          <RouterProvider router={appRoutes}></RouterProvider>
-        </Auth0Provider>
+        <PietyCategoryProvider>
+          <PietyTargetProvider>
+            <UserProvider>
+              <Auth0Provider
+                domain={domain}
+                clientId={clientId}
+                authorizationParams={{ 
+                  redirect_uri: window.location.origin,
+                  audience: audience,
+                }}
+                onRedirectCallback={onRedirectCallback}
+              >
+                <RouterProvider router={appRoutes}></RouterProvider>
+              </Auth0Provider>
+            </UserProvider>
+          </PietyTargetProvider>
+        </PietyCategoryProvider>
       </ErrorBoundary>
   );
 };

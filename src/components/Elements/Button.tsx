@@ -17,6 +17,7 @@ const Button:React.FC<ButtonProps> = ({
     <button 
       onClick={onClick}
       disabled={disabled}
+      type="button"
       className={`
         relative
         disabled:opacity-70
@@ -25,10 +26,10 @@ const Button:React.FC<ButtonProps> = ({
         hover:opacity-80
         transition
         w-full
-        ${outline ? 'bg-white' : 'bg-yellow-800'}
-        ${outline ? 'border-black' : 'border-yellow-800'}
-        ${outline ? 'text-black' : 'text-white'}
-        ${small ? 'py-1' : 'py-3'}
+        ${outline ? 'bg-white' : 'bg-yellow-800 bg-opacity-75'}
+        ${outline ? 'border-gray-400' : 'border-yellow-800 border-opacity-75'}
+        ${outline ? 'text-gray-700' : 'text-white'}
+        ${small ? 'py-2' : 'py-3'}
         ${small ? 'text-sm' : 'text-md'}
         ${small ? 'font-light' : 'font-semibold'}
         ${small ? 'border-[1px]' : 'border-2'}
