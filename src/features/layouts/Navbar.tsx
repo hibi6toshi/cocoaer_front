@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import ContentSelector from "./ContentSelector";
 import UserMenu from "./UserMenu";
-import { useLocation } from "react-router-dom";
 import Logo from "../../components/Elements/Logo";
 
 const Navbar = () => {

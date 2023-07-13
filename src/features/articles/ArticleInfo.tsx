@@ -13,7 +13,7 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
     <div className="
       md:container 
       md:mx-auto
-      md:max-w-lg
+      md:max-w-2xl
       overflow-hidden 
       shadow-sm
       m-2
@@ -25,12 +25,23 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
       <div className="font-bold mb-2">
         {article.title}
       </div>
-      <hr />
-      <div className="h-72">
-        img
+      <div>
+        {article.picture ?
+          <img 
+            src={article.picture.url} 
+            width={800}
+            height={500}
+            className="
+              block
+              rounded-md
+            "
+            alt="thumbnail"
+          />
+          : 
+          null
+        }
       </div>
-      <hr />
-      <div className="mt-4 mb-8">
+      <div className="mt-4 mb-4">
         <OptionalInfo
           piety_target_id={article.piety_target_id}
           piety_category_id={article.piety_category_id}
@@ -41,6 +52,7 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
       <div className="my-4">
         <UserMiniInfo user={article.user} />
       </div>
+      <hr className="mb-2"/>
       <div>
         {article.body}
       </div>

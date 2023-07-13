@@ -14,7 +14,7 @@ const IndexPage = () => {
     <>
       <div>forums_index</div>
       <div className="
-        max-w-2xl
+        max-w-4xl
         mx-auto
         grid
         grid-cols-1
