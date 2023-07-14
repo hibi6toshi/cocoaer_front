@@ -199,7 +199,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
               </label>
               <Select 
                 options={categoryOptions}
-                defaultValue={categoryOptions.find(element => element.value === project.piety_category_id)}
+                defaultValue={categoryOptions.find(element => element.value === String(project.piety_category_id))}
                 onChange={onChangeCategory}
                 className="mb-2"
                 inputId="ProjectCategory"
@@ -211,7 +211,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
               </label>
               <Select
                 options={targetOptions}
-                defaultValue={targetOptions.find(element => element.value === project.piety_target_id)}
+                defaultValue={targetOptions.find(element => element.value === String(project.piety_target_id))}
                 onChange={onChangeTarget}
                 className="mb-2"
                 inputId="ProjectTarget"

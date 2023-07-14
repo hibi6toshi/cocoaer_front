@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Article } from "../../types";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
+import useUser from "../../hooks/useUser";
 
 interface ArticleCardProps {
   article: Article
@@ -10,6 +11,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   article
 }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
 
   return ( 
     <div
@@ -26,6 +28,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         hover:scale-105
       "
     >
+      <div>{user?.id}</div>
       {/* <img className="w-full" src="/"> */}
       <div className="px-6 py-4">
         <div className="font-bold mb-2">{article.title}</div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { articlesIndexUrl, createArticleUrl } from '../urls';
+import { articlesIndexUrl, createArticleUrl, editArticleUrl, showArticleUrl, updateArticleUrl } from '../urls';
 
 export const getArticles = async () => {
   return axios.get(articlesIndexUrl)
@@ -10,7 +10,7 @@ export const getArticles = async () => {
 }
 
 export const getArticle = async (articleId: string) => {
-  return axios.get(`${articlesIndexUrl}/${articleId}`)
+  return axios.get(showArticleUrl(articleId))
   .then(res => {
     return res.data
   })
@@ -33,5 +33,30 @@ export const createArticle = async (token: string, formData: FormData) => {
   //   return res.data.data
   // })
   // .catch((e: any) => console.error(e))
+}
 
+export const getEditArticle = async (token: string, articleId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return axios.get(editArticleUrl(articleId), headers)
+}
+
+export const updateArticle = async (token: string, articleId: string, formData: FormData) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+  return axios.patch(
+    updateArticleUrl(articleId),
+    formData,
+    headers 
+  )
 }

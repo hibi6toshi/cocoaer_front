@@ -57,7 +57,11 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
   }
 
   function onChangeThumbnail(e: React.ChangeEvent<HTMLInputElement>){
-    dispatch({ picture : e.target.files ? e.target.files[0] : null})
+    if (e.target.files && e.target.files[0]){
+      dispatch({ imgPicture : e.target.files[0] , picture: {url: URL.createObjectURL(e.target.files[0]) }})
+    }else{
+      dispatch({ imgPicture : null , picture: {url: ""}})
+    }
   }
 
   function onChangeBody(e: React.ChangeEvent<HTMLTextAreaElement>){
@@ -182,13 +186,15 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 サムネイル
               </label>
-              { article.picture && <img src={URL.createObjectURL(article.picture)} alt="articlePicture" className="rounded-md" /> }
-              <input 
-                className="mb-4" 
-                type="file" 
-                accept="image/jpeg,image/png" 
-                onChange={onChangeThumbnail}
-              />
+                { (article.picture.url) &&
+                    <img src={article.picture.url} alt="articlePicture" className="rounded-md" />
+                }
+                <input 
+                  className="mb-4" 
+                  type="file" 
+                  accept="image/jpeg,image/png" 
+                  onChange={onChangeThumbnail}
+                />
             </div>
             <div className="body-wrapper">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ArticleBody">
@@ -223,7 +229,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
               </label>
               <Select 
                 options={categoryOptions}
-                defaultValue={categoryOptions.find(element => element.value === article.piety_category_id)}
+                defaultValue={categoryOptions.find(element => element.value === String(article.piety_category_id))}
                 onChange={onChangeCategory}
                 className="mb-2"
                 inputId="ArticleCategory"
@@ -233,7 +239,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
               </label>
               <Select 
                 options={targetOptions}
-                defaultValue={targetOptions.find(element => element.value === article.piety_target_id)}
+                defaultValue={targetOptions.find(element => element.value === String(article.piety_target_id))}
                 onChange={onChangeTarget}
                 className="mb-2"
                 inputId="ArticleTarget"

@@ -24,13 +24,15 @@ export type Article = {
 }
 
 export type FormArticle = {
+  id: string;
   piety_target_id : string;  
   piety_category_id : string;  
-  days : string | undefined;
-  cost : string | undefined; 
+  days : string;
+  cost : string; 
   title : string; 
   body : string; 
-  picture? : File | undefined | null;
+  picture : {url: string};
+  imgPicture: File | undefined;
   warningTitle: string | null;
   warningBody: string | null;
   // warning?: {
@@ -56,10 +58,11 @@ export type Project = {
 }
 
 export type FormProject = {
+  id: string;
   piety_target_id : string;  
   piety_category_id : string;  
-  limit_day : string | undefined;
-  cost : string | undefined; 
+  limit_day : string;
+  cost : string; 
   title : string; 
   body : string; 
   warningTitle: string | null;
@@ -115,10 +118,11 @@ export type Forum = {
 }
 
 export type FormForum = {
+  id: string;
   piety_target_id : string;  
   piety_category_id : string;  
-  days : string | undefined;
-  cost : string | undefined; 
+  days : string;
+  cost : string; 
   title : string; 
   body : string; 
   warningTitle: string | null;
