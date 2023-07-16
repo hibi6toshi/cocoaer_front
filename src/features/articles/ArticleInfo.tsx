@@ -1,6 +1,13 @@
+import { toast } from "react-hot-toast";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
 import UserMiniInfo from "../../components/Users/UserMiniInfo";
 import { Article } from "../../types";
+import { useAuth0 } from "@auth0/auth0-react";
+import { deleteArticle } from "../../apis/aricles";
+import useUser from "../../hooks/useUser";
+import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
+import { BiPencil, BiHeart, BiTrash } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 interface ArticleInfoProps {
   article : Article
@@ -9,6 +16,43 @@ interface ArticleInfoProps {
 const ArticleInfo: React.FC<ArticleInfoProps> = ({
   article
 }) => {
+  const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+
+  const navigateToEditPage = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    navigate(`/articles/${article.id}/edit`)
+  }
+
+  const doDeleteArticle = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.stopPropagation();
+    let checkSaveFlg = window.confirm('削除しますか？');
+    if (!checkSaveFlg){
+      return ;
+    }
+    const token = await getAccessTokenSilently()
+    await toast.promise(
+      deleteArticle(token, article.id), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+        },
+      }).then((res)=>{
+        console.log(res)
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+  }
+
+  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    console.log("doFavorite");
+  } 
+
   return ( 
     <div className="
       md:container 
@@ -22,8 +66,30 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
       min-h-screen
       p-4
     ">
-      <div className="font-bold mb-2">
-        {article.title}
+      <div className="mb-2 flex justify-between">
+        <div className="font-bold mb-2">
+          {article.title}
+        </div>
+        <div>
+          { !user 
+              ? 
+                null
+              : 
+                <>
+                  { 
+                    user.id === String(article.user_id)
+                    ? 
+                      <UserAction
+                        iconButtonArray={[{icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
+                      />
+                    :  
+                      <UserAction
+                        iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
+                      />  
+                  }
+                </>
+          }
+        </div>
       </div>
       <div>
         {article.picture ?

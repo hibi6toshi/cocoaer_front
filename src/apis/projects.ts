@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createProjectUrl, editProjectUrl, projectsIndexUrl, updateProjectUrl } from '../urls';
+import { createProjectUrl, deleteProjectUrl, editProjectUrl, projectsIndexUrl, updateProjectUrl } from '../urls';
 
 export const getProjects = async () => {
   return axios.get(projectsIndexUrl)
@@ -63,4 +63,18 @@ export const updateProject = async (token: string, projectId: string, formData: 
     formData,
     headers 
   ) 
+}
+
+export const deleteProject = async (token: string, projectId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+  return axios.delete(
+    deleteProjectUrl(projectId),
+    headers 
+  )
 }

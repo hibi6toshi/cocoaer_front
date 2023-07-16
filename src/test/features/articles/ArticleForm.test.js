@@ -30,7 +30,7 @@ const article = {
   piety_target_id: '2',
   days: '3',
   cost: '4000',
-  picture :  undefined,
+  picture : {url: ""},
   warningTitle: null,
   warningBody: null,
 };

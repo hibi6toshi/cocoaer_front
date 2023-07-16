@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { articlesIndexUrl, createArticleUrl, editArticleUrl, showArticleUrl, updateArticleUrl } from '../urls';
+import { articlesIndexUrl, createArticleUrl, deleteArticleUrl, editArticleUrl, showArticleUrl, updateArticleUrl } from '../urls';
 
 export const getArticles = async () => {
   return axios.get(articlesIndexUrl)
@@ -57,6 +57,20 @@ export const updateArticle = async (token: string, articleId: string, formData: 
   return axios.patch(
     updateArticleUrl(articleId),
     formData,
+    headers 
+  )
+}
+
+export const deleteArticle = async (token: string, articleId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+  return axios.delete(
+    deleteArticleUrl(articleId),
     headers 
   )
 }

@@ -31,6 +31,7 @@ import { default as ForumShowPage } from "../pages/forums/Show";
 import { default as ForumEditPage } from "../pages/forums/Edit";
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 export const appRoutes = createBrowserRouter([
   {

@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
 import UserMiniInfo from "../../components/Users/UserMiniInfo";
 import { Forum } from "../../types";
+import { useAuth0 } from "@auth0/auth0-react";
+import useUser from "../../hooks/useUser";
+import { toast } from "react-hot-toast";
+import { deleteForum } from "../../apis/forums";
+import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
+import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
 
 interface ForumInfoProps {
   forum: Forum;
@@ -9,6 +16,43 @@ interface ForumInfoProps {
 const ForumInfo: React.FC<ForumInfoProps> = ({
   forum
 }) => {
+  const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+
+  const navigateToEditPage = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    navigate(`/forums/${forum.id}/edit`)
+  }
+
+  const doDeleteForum = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.stopPropagation();
+    let checkSaveFlg = window.confirm('削除しますか？');
+    if (!checkSaveFlg){
+      return ;
+    }
+    const token = await getAccessTokenSilently()
+    await toast.promise(
+      deleteForum(token, forum.id), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+        },
+      }).then((res)=>{
+        console.log(res)
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+  }
+
+  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    console.log("doFavorite");
+  } 
+
   return ( 
     <div>
       <div className="
@@ -23,12 +67,33 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
         p-4
       ">
         <div className="rounded-xl border-[1px] p-4">
-          <div className="
-            font-bold
-            text-xl
-            mb-4
-          ">
-            {forum.title}
+          <div className="flex justify-between mb-4">
+            <div className="
+              font-bold
+              text-xl
+            ">
+              {forum.title}
+            </div>
+            <div>
+              { !user 
+                ? 
+                  null
+                : 
+                  <>
+                    { 
+                      user.id === String(forum.user_id)
+                      ? 
+                        <UserAction
+                          iconButtonArray={[{icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteForum}]}
+                        />
+                      :  
+                        <UserAction
+                          iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
+                        />  
+                    }
+                  </>
+            }
+            </div>
           </div>
           
           <hr />

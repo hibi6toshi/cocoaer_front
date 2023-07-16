@@ -3,6 +3,12 @@ import { Project } from "../../types";
 import useCategorys from "../../hooks/useCategorys";
 import useTargets from "../../hooks/useTargets";
 import UserMiniInfo from "../../components/Users/UserMiniInfo";
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-hot-toast";
+import { deleteProject } from "../../apis/projects";
+import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
+import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
+import useUser from "../../hooks/useUser";
 
 interface ProjectCardProps {
   project: Project;
@@ -14,6 +20,41 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const navigate = useNavigate();
   const { getCategoryName } = useCategorys();
   const { getTargetName } = useTargets();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+
+  const navigateToEditPage = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    navigate(`/projects/${project.id}/edit`)
+  }
+
+  const doDeleteArticle = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.stopPropagation();
+    let checkSaveFlg = window.confirm('削除しますか？');
+    if (!checkSaveFlg){
+      return ;
+    }
+    const token = await getAccessTokenSilently()
+    await toast.promise(
+      deleteProject(token, project.id), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+        },
+      }).then((res)=>{
+        console.log(res)
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+  }
+
+  const favorite = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    console.log("dofavorite");
+  }
 
   return (
     <div 
@@ -34,8 +75,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       "
     >
       <div className="col-span-3 grid grid-rows-3">
-        <div className="row-span-2 text-lg font-bold">
-          {project.title}
+        <div className="row-span-2 flex justify-between">
+          <div className="text-lg font-bold">
+            {project.title}
+          </div>
+          <div>
+            { !user 
+                  ? 
+                    null
+                  : 
+                    <>
+                      { 
+                        user.id === String(project.user_id)
+                        ? 
+                          <UserAction 
+                            iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
+                          />
+                        :  
+                          <UserAction
+                            iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
+                          />  
+                      }
+                    </>
+              }
+          </div>
         </div>
         <div className="row-span-1">
           <UserMiniInfo user={project.user} />

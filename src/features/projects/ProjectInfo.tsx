@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
 import UserMiniInfo from "../../components/Users/UserMiniInfo";
 import { Project } from "../../types";
 import ActionShow from "./actions/ActionShow";
 import TaskShow from "./tasks/TaskShow";
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-hot-toast";
+import { deleteProject } from "../../apis/projects";
+import useUser from "../../hooks/useUser";
+import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
+import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
 
 interface ProjectInfoProps {
   project: Project
@@ -11,6 +18,43 @@ interface ProjectInfoProps {
 const ProjectInfo: React.FC<ProjectInfoProps> = ({
   project,
 }) => {
+  const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+
+  const navigateToEditPage = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    navigate(`/projects/${project.id}/edit`)
+  }
+
+  const doDeleteArticle = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.stopPropagation();
+    let checkSaveFlg = window.confirm('削除しますか？');
+    if (!checkSaveFlg){
+      return ;
+    }
+    const token = await getAccessTokenSilently()
+    await toast.promise(
+      deleteProject(token, project.id), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+        },
+      }).then((res)=>{
+        console.log(res)
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+  }
+
+  const favorite = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    console.log("dofavorite");
+  }
+
   return ( 
     <div className="
       md:container 
@@ -24,14 +68,35 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
       p-4
     ">
       <div className="rounded-xl border-[1px] p-4">
-        <div className="
-          font-bold
-          text-xl
-          mb-4
-        ">
-          {project.title}
+        <div className="mb-2 flex items-center justify-between">
+          <div className="
+            font-bold
+            text-xl
+            mb-4
+          ">
+            {project.title}
+          </div>
+          <div>
+            { !user 
+                  ? 
+                    null
+                  : 
+                    <>
+                      { 
+                        user.id === String(project.user_id)
+                        ? 
+                          <UserAction
+                            iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
+                          />
+                        :  
+                          <UserAction
+                            iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
+                          />  
+                      }
+                    </>
+              }
+          </div>
         </div>
-        
         <hr />
 
         <div className="my-4">

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { createForumUrl, editForumUrl, forumsIndexUrl, showForumUrl, updateForumUrl } from "../urls/index"
+import { createForumUrl, deleteForumUrl, editForumUrl, forumsIndexUrl, showForumUrl, updateForumUrl } from "../urls/index"
 
 export const getForums = async () =>  {
   return axios.get(forumsIndexUrl)
@@ -61,6 +61,20 @@ export const updateForum = async (token: string, forumId: string, formData: Form
   return axios.patch(
     updateForumUrl(forumId),
     formData,
+    headers 
+  )
+}
+
+export const deleteForum = async (token: string, projectId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+  return axios.delete(
+    deleteForumUrl(projectId),
     headers 
   )
 }

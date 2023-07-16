@@ -9,6 +9,7 @@ export type Option = {
 }
 
 export type Article = {
+  type: "Article";
   id : string;
   user_id : string; 
   piety_target_id : number;  
@@ -42,6 +43,7 @@ export type FormArticle = {
 }
 
 export type Project = {
+  type: "Project";
   id : string;
   user_id : string; 
   piety_target_id : number;  
@@ -58,7 +60,7 @@ export type Project = {
 }
 
 export type FormProject = {
-  id: string;
+  id: string
   piety_target_id : string;  
   piety_category_id : string;  
   limit_day : string;
@@ -104,6 +106,7 @@ export type FormAction = {
 }
 
 export type Forum = {
+  type: "Project";
   id : string;
   user_id : string; 
   piety_target_id : number;  
