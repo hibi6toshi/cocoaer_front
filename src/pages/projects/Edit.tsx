@@ -1,10 +1,10 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { FormProject } from "../../types";
 import ProjectForm from "../../features/projects/ProjectForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { createProject } from "../../apis/projects";
+import { useNavigate, useParams } from "react-router-dom";
+import { getEditProject, updateProject } from "../../apis/projects";
 
 const initFormProject: FormProject = {
   id: "",
@@ -20,7 +20,14 @@ const initFormProject: FormProject = {
   actions: [],
 }
 
-const NewPage = () => {
+const loader = async (token: string,  forumId:string ) => {
+  if (!forumId) {
+    throw new Error("No id provided");
+  }
+  return await getEditProject(token, forumId);
+}
+
+const EditPage = () => {
   const [ formProject, setFormProject ] = useReducer(
     (formProject: FormProject, newDetails: any): FormProject => ({...formProject, ...newDetails}),
     initFormProject);
@@ -28,9 +35,35 @@ const NewPage = () => {
   const navigate = useNavigate();
   const [ isSending, setIsSending ] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
+  const { projectId } = useParams();
+
+  useEffect(()=>{
+    if(projectId == null) return 
+    const initAction = async () => {
+      const token = await getAccessTokenSilently();
+      loader(token, projectId)
+        .then(res => {
+          setFormProject(res.data.data);
+          console.log(res.data.data)
+        })
+        .catch((e: any)=>{
+          console.log(e)
+          if(e?.response?.status === 404){
+            toast.error("データが見つかりませんでした。");
+            navigate("/forums")
+            return ;
+          }
+          toast.error("something went wrong");
+          navigate("/forums")
+        })
+    }
+    initAction()
+  }
+  ,[])
 
   const submitAction = async () =>{
     if (isSending === true) return 
+    if (projectId === undefined) return
     setIsSending(true);
 
     const token = await getAccessTokenSilently();
@@ -46,7 +79,7 @@ const NewPage = () => {
     formData.append("project_form[actions]", JSON.stringify(formProject.actions));
 
     await toast.promise(
-      createProject(token, formData), 
+      updateProject(token, projectId ,formData), 
       {
         loading: 'Sending...',
         success: 'Success',
@@ -63,17 +96,19 @@ const NewPage = () => {
     setIsSending(false);
   }
 
+  if(formProject.id === ""){return <div>Loading...</div> }
+
   return ( 
     <div>
       new project
       <ProjectForm 
         project={formProject}
         dispatch={setFormProject}
-        submitAction={submitAction}      
+        submitAction={submitAction}
         isSending={isSending}
       />
     </div>
    );
 }
  
-export default NewPage;
+export default EditPage;

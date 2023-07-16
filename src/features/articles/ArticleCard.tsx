@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Article } from "../../types";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
+import { useAuth0 } from "@auth0/auth0-react";
+import { deleteArticle } from "../../apis/aricles";
+import { toast } from "react-hot-toast";
+import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
+import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
+import useUser from "../../hooks/useUser";
 
 interface ArticleCardProps {
   article: Article
@@ -10,6 +16,42 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   article
 }) => {
   const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+
+  const navigateToEditPage = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    navigate(`/articles/${article.id}/edit`)
+  }
+
+  const doDeleteArticle = async (e: React.MouseEvent<HTMLButtonElement>) =>{
+    e.stopPropagation();
+    let checkSaveFlg = window.confirm('削除しますか？');
+    if (!checkSaveFlg){
+      return 
+    } 
+
+    const token = await getAccessTokenSilently()
+    await toast.promise(
+      deleteArticle(token, article.id), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+        },
+      }).then((res)=>{
+        console.log(res)
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+  }
+
+  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    console.log("doFavorite");
+  } 
 
   return ( 
     <div
@@ -26,9 +68,30 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         hover:scale-105
       "
     >
-      {/* <img className="w-full" src="/"> */}
       <div className="px-6 py-4">
-        <div className="font-bold mb-2">{article.title}</div>
+        <div className="mb-2 flex justify-between">
+          <div className="font-bold">{article.title}</div>
+          <div>
+            { !user 
+                ? 
+                  null
+                : 
+                  <>
+                    { 
+                      user.id === String(article.user_id)
+                      ? 
+                        <UserAction 
+                          iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
+                        />
+                      :  
+                        <UserAction
+                          iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
+                        />  
+                    }
+                  </>
+            }
+          </div>
+        </div>
         {article.picture ?
           <img src={article.picture.url} className="rounded-md mb-2" alt="thumbnail" />
           : 

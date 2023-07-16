@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import { getForums } from "../../apis/forums";
 import ForumCard from "../../features/forums/ForumCard";
-import { Article, Forum } from "../../types";
+import { Forum } from "../../types";
 
 export const loader = async () => {
   const forums = await getForums();
@@ -9,7 +9,7 @@ export const loader = async () => {
 } 
 
 const IndexPage = () => {
-  const forums = useLoaderData() as Article[];
+  const forums = useLoaderData() as Forum[];
   return ( 
     <>
       <div>forums_index</div>

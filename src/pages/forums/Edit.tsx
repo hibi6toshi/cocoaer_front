@@ -1,15 +1,15 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import ForumForm from "../../features/forums/ForumForm";
 import { FormForum } from "../../types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { createForum } from "../../apis/forums";
+import { getEditForum, updateForum } from "../../apis/forums";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const initFormForum: FormForum = {
   id: "",
-  piety_target_id : "1",  
-  piety_category_id : "1",  
+  piety_target_id : "",  
+  piety_category_id : "",  
   days : "",
   cost : "",
   title : "", 
@@ -18,7 +18,14 @@ const initFormForum: FormForum = {
   warningBody: null,
 }
 
-const NewPage = () => {
+const loader = async (token: string,  forumId:string ) => {
+  if (!forumId) {
+    throw new Error("No id provided");
+  }
+  return await getEditForum(token, forumId);
+}
+
+const EditPage = () => {
 
   const [ formForum, setFormForum] = useReducer(
     (formForum: FormForum, newDetails: any): FormForum => ({...formForum, ...newDetails}),
@@ -27,9 +34,34 @@ const NewPage = () => {
   const navigate = useNavigate();
   const [ isSending, setIsSending ] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
+  const { forumId } = useParams();
+
+  useEffect(()=>{
+    if(forumId == null) return 
+    const initAction = async () => {
+      const token = await getAccessTokenSilently();
+      loader(token, forumId)
+        .then(res => {
+          setFormForum(res.data.data);
+        })
+        .catch((e: any)=>{
+          console.log(e)
+          if(e?.response?.status === 404){
+            toast.error("データが見つかりませんでした。");
+            navigate("/forums")
+            return ;
+          }
+          toast.error("something went wrong");
+          navigate("/forums")
+        })
+    }
+    initAction()
+  }
+  ,[])
 
   const submitAction= async() =>{
     if (isSending === true) return 
+    if (forumId === undefined) return 
     setIsSending(true);
 
     const token = await getAccessTokenSilently();
@@ -43,12 +75,12 @@ const NewPage = () => {
     formData.append("forum[cost]", formForum.cost);
     
     await toast.promise(
-      createForum(token, formData), 
+      updateForum(token, forumId, formData), 
       {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          return err?.response?.data?.errors?.[0]?.length ? err.response.data.errors[0] : 'failed'
         },
       }).then((res)=>{
         console.log(res)
@@ -59,6 +91,8 @@ const NewPage = () => {
     );
     setIsSending(false);
   }
+
+  if(formForum.id==="") return <div>loading...</div>
 
   return (
     <>
@@ -72,4 +106,4 @@ const NewPage = () => {
    );
 }
  
-export default NewPage;
+export default EditPage;

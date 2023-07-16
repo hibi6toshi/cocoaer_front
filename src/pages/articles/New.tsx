@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const initFormArticle: FormArticle = {
+  id: "",
   piety_target_id : "1",  
   piety_category_id : "1",  
   days : "",
   cost : "",
   title : "", 
   body : "", 
-  picture :  undefined,
+  picture :  {url: ""},
+  imgPicture: undefined,
   warningTitle: null,
   warningBody: null,
   // reducer関数で同一関数内でそれぞれを更新できないため却下 -> typeを引数にして、階層指定で変更できるようにする必要がある
@@ -40,11 +42,11 @@ const NewPage = () => {
     const formData = new FormData();
     formData.append("article[title]", formArticle.title);
     formData.append("article[body]", formArticle.body);
-    if (formArticle.picture) formData.append("article[picture]", formArticle.picture);
+    if (formArticle.imgPicture) formData.append("article[picture]", formArticle.imgPicture);
     formData.append("article[piety_category_id]", formArticle.piety_category_id);
     formData.append("article[piety_target_id]", formArticle.piety_target_id);
-    if (formArticle.days) formData.append("article[days]", formArticle.days);
-    if (formArticle.cost) formData.append("article[cost]", formArticle.cost);
+    formData.append("article[days]", formArticle.days);
+    formData.append("article[cost]", formArticle.cost);
 
     await toast.promise(
       createArticle(token, formData), 
@@ -52,7 +54,7 @@ const NewPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
         },
       }).then((res)=>{
         console.log(res)

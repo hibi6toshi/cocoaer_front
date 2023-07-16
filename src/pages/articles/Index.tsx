@@ -10,6 +10,7 @@ export async function loader() {
 
 const IndexPage = () => {
   const articles  = useLoaderData() as Article[];
+
   return ( 
     <>
     <div>articles_index</div>

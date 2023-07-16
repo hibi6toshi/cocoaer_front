@@ -175,7 +175,7 @@ const ForumForm: React.FC<ForumFormProps> = ({
               </label>
               <Select 
                 options={categoryOptions}
-                defaultValue={categoryOptions.find(element => element.value === forum.piety_category_id)}
+                defaultValue={categoryOptions.find(element => element.value === String(forum.piety_category_id))}
                 onChange={onChangeCategory}
                 className="mb-2"
                 inputId="ForumCategory"
@@ -187,7 +187,7 @@ const ForumForm: React.FC<ForumFormProps> = ({
               </label>
               <Select 
                 options={targetOptions}
-                defaultValue={targetOptions.find(element => element.value === forum.piety_target_id)}
+                defaultValue={targetOptions.find(element => element.value === String(forum.piety_target_id))}
                 onChange={onChangeTarget}
                 className="mb-2"
                 inputId="ForumTarget"
