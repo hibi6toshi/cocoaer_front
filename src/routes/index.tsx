@@ -29,9 +29,11 @@ import {
 import { default as ForumNewPage} from "../pages/forums/New";
 import { default as ForumShowPage } from "../pages/forums/Show";
 import { default as ForumEditPage } from "../pages/forums/Edit";
+import { default as FavoriteIndex } from "../pages/favorites/Index"
+import { default as FavotiteShow } from "../pages/favorites/Show"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { redirect } from "react-router-dom";
 
 export const appRoutes = createBrowserRouter([
   {
@@ -118,24 +120,25 @@ export const appRoutes = createBrowserRouter([
         },
         {
           path: "favorites",
-          element: <div>favorites<Outlet /></div>,
-          loader: (): string=>{
-            console.log("favoriteloader");
-            return 'xxx';
-          },
+          element: <FavoriteIndex />,
           children: [
             {
               index: true,
               element: <div>favorite_index</div>,
-              loader: (): string=>{
-                console.log("favorite_indexloader");
-                return 'xxx';
-              },
+              loader: () => {return redirect("articles")},
+            },
+            {
+              path: "articles",
+              element: <FavotiteShow favoritableType="Article" />
             },
             {
               path: "projects",
-              element: <div>favorites_project</div>
-            }
+              element: <FavotiteShow favoritableType="Project" />
+            },
+            {
+              path: "forums",
+              element: <FavotiteShow favoritableType="Forum" />
+            },
           ]
         },
         {

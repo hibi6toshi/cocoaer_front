@@ -8,6 +8,11 @@ export type Option = {
   label: string;
 }
 
+export type Favoritable = {
+  favorited_by_user_ids: number[];
+}
+export type FavoritableType = "Article" | "Project" | "Forum";
+
 export type Article = {
   type: "Article";
   id : string;
@@ -22,7 +27,7 @@ export type Article = {
   updated_at? : string;
   picture? : {url: string};
   user :User;
-}
+} & Favoritable
 
 export type FormArticle = {
   id: string;
@@ -57,7 +62,7 @@ export type Project = {
   user :User;
   tasks: Task[] ;
   actions: Action[] ;
-}
+} & Favoritable
 
 export type FormProject = {
   id: string
@@ -118,7 +123,7 @@ export type Forum = {
   created_at? : string;
   updated_at? : string;
   user :User;
-}
+} & Favoritable
 
 export type FormForum = {
   id: string;

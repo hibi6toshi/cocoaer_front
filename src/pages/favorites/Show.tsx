@@ -1,0 +1,123 @@
+import { useEffect, useState } from "react";
+import { Article, FavoritableType, Forum, Project } from "../../types";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getFavorites } from "../../apis/favorites";
+import ArticleCard from "../../features/articles/ArticleCard";
+import ProjectCard from "../../features/projects/ProjectCard";
+import ForumCard from "../../features/forums/ForumCard";
+
+const loader = async (token :string, favoritableType: FavoritableType) => {
+  if (!favoritableType) {
+    throw new Error("No id favoritableType");
+  }
+  const  favorites = await getFavorites(token, favoritableType);
+  return favorites;
+}
+
+interface ShowPageProps {
+  favoritableType:  FavoritableType;
+}
+
+const ShowPage: React.FC< ShowPageProps> = ({
+  favoritableType,
+}) => {
+
+  const { getAccessTokenSilently } = useAuth0();
+  const [ favorites,  setFavorites ] = useState([]);
+  const [ isLoading, setIsLoading] = useState(false); 
+  
+  useEffect(()=>{
+    setIsLoading(true);
+    const initAction = async () =>{
+      const token = await getAccessTokenSilently();
+      const favoriteDatas = await loader(token, favoritableType);
+      console.log(favoriteDatas?.data.data)
+      setFavorites(favoriteDatas?.data?.data)
+      setIsLoading(false);
+    }  
+    initAction();
+  }, [favoritableType])
+
+  if(isLoading) {
+    return (
+      <div>Loading....</div>
+    )
+  }
+
+  if(favorites.length===0){
+    return (
+      <div className="flex justify-center">
+        <div className="mt-32 font-bold text-lg">
+          No favorite yet
+        </div>
+      </div>
+    )
+  }
+
+  if(favoritableType === "Article"){
+    return (
+      <div className="
+        container 
+        mx-auto
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        ms:grid-cols-3
+        lg:grid-cols-3  
+      ">
+        {favorites.map((article: Article)=>(
+          <ArticleCard 
+            article={article}
+            key={article.id}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if(favoritableType === "Project"){
+    return (
+      <div className="
+        max-w-4xl
+        mx-auto
+        grid
+        grid-cols-1
+        m-4
+      "> 
+        {favorites?.map((project: Project)=>(
+          <ProjectCard 
+            project={project}
+            key={project.id}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  if(favoritableType === "Forum"){
+    return (
+      <div className="
+        max-w-4xl
+        mx-auto
+        grid
+        grid-cols-1
+        m-4
+      "> 
+        {favorites?.map((forum: Forum)=>(
+          <ForumCard
+            forum={forum}
+            key={forum.id}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return ( 
+    <div>
+      
+    </div>
+  );
+}
+ 
+export default ShowPage;

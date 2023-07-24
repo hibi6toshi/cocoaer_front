@@ -25,6 +25,11 @@ export const editForumUrl = (forumId) => `${forumsIndexUrl}/${forumId}/edit`
 export const updateForumUrl = (forumId)  => `${forumsIndexUrl}/${forumId}`
 export const deleteForumUrl = (forumId)  => `${forumsIndexUrl}/${forumId}`
 
+// favorite
+export const favoriteIndexUrl = `${DEFAULT_API_LOCALHOST}/favorites`
+export const createFavoriteUrl = favoriteIndexUrl
+export const deleteFavoriteUrl = (fakeId) =>`${favoriteIndexUrl}/${fakeId}`
+
 export const pietyCategorysIndexUrl = `${DEFAULT_API_LOCALHOST}/piety_categorys`
 export const pietyTargetsIndexUrl = `${DEFAULT_API_LOCALHOST}/piety_targets`
 

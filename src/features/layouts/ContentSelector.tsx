@@ -14,8 +14,10 @@ const ContentSelector = () => {
             py-2 
             font-bold  
             border-[1px]
+            transition-colors
+            duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
-            ${isActive ? "text-white" : "" }
+            ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
             `
           }
         >
@@ -28,8 +30,10 @@ const ContentSelector = () => {
             py-2 
             font-bold  
             border-[1px]
+            transition-colors
+            duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
-            ${isActive ? "text-white" : "" }
+            ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
             `
           }
         >
@@ -43,8 +47,10 @@ const ContentSelector = () => {
             py-2
             font-bold  
             border-[1px]
+            transition-colors
+            duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
-            ${isActive ? "text-white" : "" }
+            ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
             `
           }
         >

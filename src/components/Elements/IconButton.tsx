@@ -2,12 +2,14 @@ import { IconType } from "react-icons";
 
 export interface IconButtonProps {
   icon : IconType;
-  onClickIcon : (e: React.MouseEvent<HTMLButtonElement>) => void
+  onClickIcon : (e: React.MouseEvent<HTMLButtonElement>) => void;
+  color?: string;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
   icon: Icon,
   onClickIcon,
+  color
 }) => {
   return (
     <button
@@ -23,6 +25,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       <Icon
         size={20}
         aria-label="IconButton"
+        color={color}
       />
     </button>
   );

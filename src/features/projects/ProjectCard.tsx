@@ -9,6 +9,7 @@ import { deleteProject } from "../../apis/projects";
 import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
 import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
 import useUser from "../../hooks/useUser";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ProjectCardProps {
   project: Project;
@@ -51,11 +52,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     );
   }
 
-  const favorite = (e: React.MouseEvent<HTMLButtonElement>)=>{
-    e.stopPropagation();
-    console.log("dofavorite");
-  }
-
   return (
     <div 
       onClick={()=> navigate(`/projects/${project.id}`)}
@@ -86,15 +82,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   : 
                     <>
                       { 
-                        user.id === String(project.user_id)
+                        user.id === project.user_id
                         ? 
                           <UserAction 
                             iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
                           />
                         :  
-                          <UserAction
-                            iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                          />  
+                          <FavoriteButton
+                            initFavoritedUserIds={project.favorited_by_user_ids}
+                            favoritableType="Project"
+                            favoritableId={project.id}
+                          />
                       }
                     </>
               }

@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
 import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
 import useUser from "../../hooks/useUser";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ArticleCardProps {
   article: Article
@@ -48,11 +49,6 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
     );
   }
 
-  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    console.log("doFavorite");
-  } 
-
   return ( 
     <div
       onClick={()=>navigate(`/articles/${article.id}`)} 
@@ -78,15 +74,17 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
                 : 
                   <>
                     { 
-                      user.id === String(article.user_id)
+                      user.id === article.user_id
                       ? 
                         <UserAction 
                           iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
                         />
                       :  
-                        <UserAction
-                          iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                        />  
+                        <FavoriteButton 
+                          initFavoritedUserIds={article.favorited_by_user_ids}
+                          favoritableType="Article"
+                          favoritableId={article.id}
+                        />
                     }
                   </>
             }
