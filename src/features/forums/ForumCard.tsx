@@ -9,6 +9,7 @@ import useUser from "../../hooks/useUser";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
 import { deleteForum } from "../../apis/forums";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ForumCardProps {
   forum: Forum;
@@ -51,11 +52,6 @@ const ForumCard: React.FC<ForumCardProps> = ({
     );
   }
 
-  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    console.log("doFavorite");
-  } 
-
   return (
     <div
       onClick={()=>navigate(`/forums/${forum.id}`)} 
@@ -86,15 +82,17 @@ const ForumCard: React.FC<ForumCardProps> = ({
               : 
                 <>
                   { 
-                    user.id === String(forum.user_id)
+                    user.id === forum.user_id
                     ? 
                       <UserAction
                         iconButtonArray={[{icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteForum}]}
                       />
                     :  
-                      <UserAction
-                        iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                      />  
+                      <FavoriteButton
+                        initFavoritedUserIds={forum.favorited_by_user_ids}
+                        favoritableType="Forum"
+                        favoritableId={forum.id}
+                      />
                   }
                 </>
           }

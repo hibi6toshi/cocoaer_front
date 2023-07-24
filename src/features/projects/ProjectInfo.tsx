@@ -10,6 +10,7 @@ import { deleteProject } from "../../apis/projects";
 import useUser from "../../hooks/useUser";
 import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
 import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ProjectInfoProps {
   project: Project
@@ -50,11 +51,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
     );
   }
 
-  const favorite = (e: React.MouseEvent<HTMLButtonElement>)=>{
-    e.stopPropagation();
-    console.log("dofavorite");
-  }
-
   return ( 
     <div className="
       md:container 
@@ -83,15 +79,17 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
                   : 
                     <>
                       { 
-                        user.id === String(project.user_id)
+                        user.id === project.user_id
                         ? 
                           <UserAction
                             iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
                           />
                         :  
-                          <UserAction
-                            iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                          />  
+                          <FavoriteButton 
+                            initFavoritedUserIds={project.favorited_by_user_ids}
+                            favoritableType="Project"
+                            favoritableId={project.id}
+                          />
                       }
                     </>
               }

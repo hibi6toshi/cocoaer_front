@@ -1,13 +1,14 @@
-import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import OptionalInfo from "../../components/OptionalInfos/OptionalInfo";
 import UserMiniInfo from "../../components/Users/UserMiniInfo";
 import { Article } from "../../types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { deleteArticle } from "../../apis/aricles";
 import useUser from "../../hooks/useUser";
 import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
-import { BiPencil, BiHeart, BiTrash } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { deleteArticle } from "../../apis/aricles";
+import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ArticleInfoProps {
   article : Article
@@ -29,9 +30,11 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
     e.stopPropagation();
     let checkSaveFlg = window.confirm('削除しますか？');
     if (!checkSaveFlg){
-      return ;
-    }
-    const token = await getAccessTokenSilently()
+      return 
+    } 
+
+    const token = await getAccessTokenSilently();
+    
     await toast.promise(
       deleteArticle(token, article.id), 
       {
@@ -48,11 +51,6 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
     );
   }
 
-  const favorite = (e :React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    console.log("doFavorite");
-  } 
-
   return ( 
     <div className="
       md:container 
@@ -67,28 +65,28 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
       p-4
     ">
       <div className="mb-2 flex justify-between">
-        <div className="font-bold mb-2">
-          {article.title}
-        </div>
+        <div className="font-bold">{article.title}</div>
         <div>
           { !user 
-              ? 
-                null
-              : 
-                <>
-                  { 
-                    user.id === String(article.user_id)
-                    ? 
-                      <UserAction
-                        iconButtonArray={[{icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
-                      />
-                    :  
-                      <UserAction
-                        iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                      />  
-                  }
-                </>
-          }
+                  ? 
+                    null
+                  : 
+                    <>
+                      { 
+                        user.id === article.user_id
+                        ? 
+                          <UserAction 
+                            iconButtonArray={[{ icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteArticle}]}
+                          />
+                        :  
+                          <FavoriteButton 
+                            initFavoritedUserIds={article.favorited_by_user_ids}
+                            favoritableType="Article"
+                            favoritableId={article.id}
+                          />
+                      }
+                    </>
+              }
         </div>
       </div>
       <div>

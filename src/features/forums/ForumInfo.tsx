@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { deleteForum } from "../../apis/forums";
 import UserAction from "../../components/OptionalInfos/UserActions/UserAction";
 import { BiPencil, BiTrash, BiHeart } from "react-icons/bi";
+import FavoriteButton from "../favorites/FavoriteButton";
 
 interface ForumInfoProps {
   forum: Forum;
@@ -81,15 +82,17 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
                 : 
                   <>
                     { 
-                      user.id === String(forum.user_id)
+                      user.id === forum.user_id
                       ? 
                         <UserAction
                           iconButtonArray={[{icon: BiPencil, onClickIcon: navigateToEditPage}, { icon: BiTrash, onClickIcon: doDeleteForum}]}
                         />
                       :  
-                        <UserAction
-                          iconButtonArray={[{ icon: BiHeart, onClickIcon: favorite}]}
-                        />  
+                      <FavoriteButton
+                        initFavoritedUserIds={forum.favorited_by_user_ids}
+                        favoritableType="Forum"
+                        favoritableId={forum.id}
+                      />
                     }
                   </>
             }

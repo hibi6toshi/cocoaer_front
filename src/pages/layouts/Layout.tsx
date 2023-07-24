@@ -13,7 +13,7 @@ const Layout = () => {
       <div className={`
         flex-grow
         pb-10
-        pt-24
+        pt-14
         ${navigation.state === "idle" ? '' : 'opacity-50'}
       `}>
         <ScrollRestoration />
