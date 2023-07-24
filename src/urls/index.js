@@ -30,6 +30,9 @@ export const favoriteIndexUrl = `${DEFAULT_API_LOCALHOST}/favorites`
 export const createFavoriteUrl = favoriteIndexUrl
 export const deleteFavoriteUrl = (fakeId) =>`${favoriteIndexUrl}/${fakeId}`
 
+// myPost
+export const myPostIndexUrl = `${DEFAULT_API_LOCALHOST}/my_post`
+
 export const pietyCategorysIndexUrl = `${DEFAULT_API_LOCALHOST}/piety_categorys`
 export const pietyTargetsIndexUrl = `${DEFAULT_API_LOCALHOST}/piety_targets`
 

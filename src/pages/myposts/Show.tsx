@@ -1,41 +1,42 @@
 import { useEffect, useState } from "react";
-import { Article, FavoritableType, Forum, Project } from "../../types";
+import { Article, Forum, Project, contentType } from "../../types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getFavorites } from "../../apis/favorites";
+
 import ArticleCard from "../../features/articles/ArticleCard";
 import ProjectCard from "../../features/projects/ProjectCard";
 import ForumCard from "../../features/forums/ForumCard";
+import { getMyPosts } from "../../apis/myPost";
 
-const loader = async (token :string, favoritableType: FavoritableType) => {
-  if (!favoritableType) {
-    throw new Error("No id favoritableType");
+const loader = async (token :string, contentType: contentType ) => {
+  if (!contentType) {
+    throw new Error("No id contentType");
   }
-  const  favorites = await getFavorites(token, favoritableType);
+  const  favorites = await getMyPosts(token, contentType);
   return favorites;
 }
 
 interface ShowPageProps {
-  favoritableType:  FavoritableType;
+  contentType: contentType;
 }
 
 const ShowPage: React.FC< ShowPageProps> = ({
-  favoritableType,
+  contentType,
 }) => {
 
   const { getAccessTokenSilently } = useAuth0();
-  const [ favorites,  setFavorites ] = useState([]);
+  const [ myposts,  setMyposts ] = useState([]);
   const [ isLoading, setIsLoading] = useState(false); 
   
   useEffect(()=>{
     setIsLoading(true);
     const initAction = async () =>{
       const token = await getAccessTokenSilently();
-      const favoriteDatas = await loader(token, favoritableType);
-      setFavorites(favoriteDatas?.data?.data)
+      const favoriteDatas = await loader(token, contentType);
+      setMyposts(favoriteDatas?.data?.data)
       setIsLoading(false);
     }  
     initAction();
-  }, [favoritableType])
+  }, [contentType])
 
   if(isLoading) {
     return (
@@ -43,17 +44,17 @@ const ShowPage: React.FC< ShowPageProps> = ({
     )
   }
 
-  if(favorites.length===0){
+  if(myposts.length===0){
     return (
       <div className="flex justify-center">
         <div className="mt-32 font-bold text-lg">
-          No favorite yet
+          No Post yet
         </div>
       </div>
     )
   }
 
-  if(favoritableType === "Article"){
+  if(contentType === "Article"){
     return (
       <div className="
         container 
@@ -64,7 +65,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
         ms:grid-cols-3
         lg:grid-cols-3  
       ">
-        {favorites.map((article: Article)=>(
+        {myposts.map((article: Article)=>(
           <ArticleCard 
             article={article}
             key={article.id}
@@ -74,7 +75,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
     );
   }
 
-  if(favoritableType === "Project"){
+  if(contentType === "Project"){
     return (
       <div className="
         max-w-4xl
@@ -83,7 +84,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
         grid-cols-1
         m-4
       "> 
-        {favorites?.map((project: Project)=>(
+        {myposts?.map((project: Project)=>(
           <ProjectCard 
             project={project}
             key={project.id}
@@ -93,7 +94,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
     );
   }
 
-  if(favoritableType === "Forum"){
+  if(contentType === "Forum"){
     return (
       <div className="
         max-w-4xl
@@ -102,7 +103,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
         grid-cols-1
         m-4
       "> 
-        {favorites?.map((forum: Forum)=>(
+        {myposts?.map((forum: Forum)=>(
           <ForumCard
             forum={forum}
             key={forum.id}
