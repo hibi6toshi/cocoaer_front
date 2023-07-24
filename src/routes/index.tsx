@@ -31,6 +31,8 @@ import { default as ForumShowPage } from "../pages/forums/Show";
 import { default as ForumEditPage } from "../pages/forums/Edit";
 import { default as FavoriteIndex } from "../pages/favorites/Index"
 import { default as FavotiteShow } from "../pages/favorites/Show"
+import { default as MyPostIndex } from "../pages/myposts/Index"
+import { default as MyPostShow } from "../pages/myposts/Show"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
 import { redirect } from "react-router-dom";
@@ -112,11 +114,26 @@ export const appRoutes = createBrowserRouter([
        children: [
         {
           path: "myposts",
-          element: <div>myposts with auth0</div>,
-          loader: (): string=>{
-            console.log("myposts");
-            return 'xxx';
-          },
+          element: <MyPostIndex />,
+          children: [
+            {
+              index: true,
+              element: <div>mypost_index</div>,
+              loader: () => {return redirect("articles")},
+            },
+            {
+              path: "articles",
+              element: <MyPostShow contentType="Article" />
+            },
+            {
+              path: "projects",
+              element: <MyPostShow contentType="Project" />
+            },
+            {
+              path: "forums",
+              element: <MyPostShow contentType="Forum" />
+            },
+          ]
         },
         {
           path: "favorites",

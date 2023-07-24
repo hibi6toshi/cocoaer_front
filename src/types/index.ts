@@ -13,6 +13,8 @@ export type Favoritable = {
 }
 export type FavoritableType = "Article" | "Project" | "Forum";
 
+export type contentType =  "Article" | "Project" | "Forum";
+
 export type Article = {
   type: "Article";
   id : string;
