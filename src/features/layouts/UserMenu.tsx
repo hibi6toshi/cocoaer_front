@@ -25,7 +25,7 @@ const UserMenu = () => {
         return await createUser(token, auth0User);
       };
       doCreateUser()
-      .then(data => {setUser({id: data.id, avatar: data.avatar})})
+      .then(data => setUser({id: data.id, avatar: data.avatar, name: data.name}))
     }else{
       setUser(null);
     }
@@ -76,7 +76,7 @@ const UserMenu = () => {
                 ">
                   <div className="absolute right-0 w-56 origin-top-right divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-lg outline-none" role="menu">
                     <div className="px-4 py-3">
-                      <p className="text-sm leading-5">{auth0User?.name}</p>
+                      <p className="text-sm leading-5">{user?.name}</p>
                     </div>
 
                     <div className="py-1">

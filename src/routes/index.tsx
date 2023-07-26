@@ -33,6 +33,8 @@ import { default as FavoriteIndex } from "../pages/favorites/Index"
 import { default as FavotiteShow } from "../pages/favorites/Show"
 import { default as MyPostIndex } from "../pages/myposts/Index"
 import { default as MyPostShow } from "../pages/myposts/Show"
+import { default as UserIndex } from "../pages/users/Index"
+import { default as UserShow } from "../pages/users/Show"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
 import { redirect } from "react-router-dom";
@@ -155,6 +157,29 @@ export const appRoutes = createBrowserRouter([
             {
               path: "forums",
               element: <FavotiteShow favoritableType="Forum" />
+            },
+          ]
+        },
+        {
+          path: "users/:userId",
+          element: <UserIndex />,
+          children: [
+            {
+              index: true,
+              element: <div>user_index</div>,
+              loader: () => {return redirect("articles")},
+            },
+            {
+              path: "articles",
+              element: <UserShow contentType="Article"/>
+            },
+            {
+              path: "projects",
+              element: <UserShow contentType="Project"/>
+            },
+            {
+              path: "forums",
+              element: <UserShow contentType="Forum"/>
             },
           ]
         },

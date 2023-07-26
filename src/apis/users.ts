@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { User } from '@auth0/auth0-react';
-import { userCreateUrl } from '../urls';
+import { showUserUrl, userArticlesIndexUrl, userCreateUrl, userForumsIndexUrl, userProjectsIndexUrl } from '../urls';
 
 export const createUser = async(token: string, user: User) => {
   const headers = {
@@ -11,8 +11,7 @@ export const createUser = async(token: string, user: User) => {
   }
 
   const data = {
-    name: user?.name,
-    picture: user?.picture
+    name: user?.nickname,
   }
   return axios.post(
     userCreateUrl,
@@ -22,4 +21,48 @@ export const createUser = async(token: string, user: User) => {
     return res.data.data
   })
   .catch((e: any) => console.error(e))
+}
+
+export const getUser = async (token: string, userId: string) =>{
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return axios.get(showUserUrl(userId), headers)
+}
+
+export const getUserArticles =async (token: string, userId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return axios.get(userArticlesIndexUrl(userId), headers)
+}
+
+export const getUserProjects =async (token: string, userId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return axios.get(userProjectsIndexUrl(userId), headers)
+}
+
+export const getUserForums =async (token: string, userId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+  }
+
+  return axios.get(userForumsIndexUrl(userId), headers)
 }

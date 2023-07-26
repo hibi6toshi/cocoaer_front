@@ -1,6 +1,8 @@
 export type User = {
   id : string;
-  avatar?: {url: string}
+  avatar?: {url: string};
+  name: string;
+  introduction? :string;
 }
 
 export type Option = {

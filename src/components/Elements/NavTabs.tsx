@@ -16,11 +16,7 @@ const NavTabs: React.FC<NavTabsProps> = ({
 }) => {
   return ( 
     <span className="
-      rounded-3xl
       z-10
-      shadow-sm 
-      transition 
-      hover:shadow-md
     ">
       <div>
         {headerInfo && headerInfo}
@@ -37,6 +33,7 @@ const NavTabs: React.FC<NavTabsProps> = ({
         pt-2
         shadow-sm transition hover:shadow-md 
         sticky top-14
+        px-5
       ">
         {navTabDatas.map((tab) => (
             <NavLink 
@@ -44,6 +41,7 @@ const NavTabs: React.FC<NavTabsProps> = ({
               to={tab.navTo}
               className={({isActive})  => `
                 py-2
+                sm:mx-5
                 md:mx-20
                 border-b-4
                 transition-colors
