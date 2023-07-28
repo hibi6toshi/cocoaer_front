@@ -1,10 +1,15 @@
 const DEFAULT_API_LOCALHOST = 'http://localhost:3010/api/v1'
 
+// users
 export const userCreateUrl = `${DEFAULT_API_LOCALHOST}/users`
 export const showUserUrl = (userId) => `${userCreateUrl}/${userId}`
 export const userArticlesIndexUrl = (userId) => `${userCreateUrl}/${userId}/articles`
 export const userProjectsIndexUrl = (userId) => `${userCreateUrl}/${userId}/projects`
 export const userForumsIndexUrl = (userId) => `${userCreateUrl}/${userId}/forums`
+
+// profile
+export const getProfileUrl = `${DEFAULT_API_LOCALHOST}/profile`
+export const updateProfileUrl = getProfileUrl;
 
 // article
 export const articlesIndexUrl = `${DEFAULT_API_LOCALHOST}/articles`

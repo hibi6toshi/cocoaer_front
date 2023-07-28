@@ -60,7 +60,7 @@ const UserMenu = () => {
                   />
                   <img src={user?.avatar?.url} alt="userIcon" 
                     width={25} height={25} 
-                    className="rounded-full"
+                    className="self-center flex-shrink-0 w-6 h-6 rounded-full md:justify-self-start"
                   />
                 </div>
                 <div className="

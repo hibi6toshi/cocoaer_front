@@ -5,6 +5,15 @@ export type User = {
   introduction? :string;
 }
 
+export type FormUser = {
+  id : string;
+  avatar : {url: string};
+  imgAvatar: File | undefined;
+  name: string;
+  introduction :string;
+  warningName: string | null;
+}
+
 export type Option = {
   value: string;
   label: string;

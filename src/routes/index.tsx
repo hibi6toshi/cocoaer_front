@@ -35,6 +35,7 @@ import { default as MyPostIndex } from "../pages/myposts/Index"
 import { default as MyPostShow } from "../pages/myposts/Show"
 import { default as UserIndex } from "../pages/users/Index"
 import { default as UserShow } from "../pages/users/Show"
+import { default as ProfileShow } from "../pages/profiles/Show"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
 import { redirect } from "react-router-dom";
@@ -185,11 +186,7 @@ export const appRoutes = createBrowserRouter([
         },
         {
           path: "profile",
-          element: <div>profile</div>,
-          loader: (): string=>{
-            console.log("myposts");
-            return 'xxx';
-          },
+          element: <ProfileShow />,
         },
        ]
       },

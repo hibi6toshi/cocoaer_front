@@ -41,9 +41,8 @@ const ShowPage: React.FC<ShowPageProps> = ({
     setIsLoading(true);
     const initAction = async () =>{
       const token = await getAccessTokenSilently();
-      const contents = await loader(token, userId, contentType);
-      console.log(contents)
-      setContents(contents?.data?.data)
+      const contentsData = await loader(token, userId, contentType);
+      setContents(contentsData?.data?.data)
       setIsLoading(false);
     }  
     initAction();
