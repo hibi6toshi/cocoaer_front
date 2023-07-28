@@ -4,7 +4,8 @@ import UserMiniInfo from "../../../components/Users/UserMiniInfo";
 import { BrowserRouter, RouterProvider, createMemoryRouter } from "react-router-dom";
 
 const testUser = {
-  id :"1234"
+  id :"1234",
+  name: "testUserName"
 }
 
 describe("Rendering", ()=>{
@@ -14,7 +15,7 @@ describe("Rendering", ()=>{
         <UserMiniInfo user={testUser}/>
       </BrowserRouter>
     )
-    const userId = screen.getByText("1234");
+    const userId = screen.getByText("testUserName");
     expect(userId).toBeInTheDocument();
   })
 });
@@ -33,7 +34,7 @@ describe("Event", ()=>{
     ],
     { initialEntries: ["/test"] });
     render(<RouterProvider router={router} />);
-    const userId = screen.getByText("1234");
+    const userId = screen.getByText("testUserName");
     
     act(() => {
       userEvent.click(userId);

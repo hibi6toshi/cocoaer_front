@@ -1,6 +1,17 @@
 export type User = {
   id : string;
-  avatar?: {url: string}
+  avatar?: {url: string};
+  name: string;
+  introduction? :string;
+}
+
+export type FormUser = {
+  id : string;
+  avatar : {url: string};
+  imgAvatar: File | undefined;
+  name: string;
+  introduction :string;
+  warningName: string | null;
 }
 
 export type Option = {

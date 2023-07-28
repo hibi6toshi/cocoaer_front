@@ -35,7 +35,7 @@ const UserMiniInfo: React.FC<UserMiniInfoProps> = ({
           />
           <span className="
             mx-2
-          ">{user.id}</span>
+          ">{user.name}</span>
         </span>
       </span>
     </div>
