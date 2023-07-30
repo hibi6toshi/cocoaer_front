@@ -3,10 +3,12 @@ import { User } from "../../types";
 
 interface UserMiniInfoProps {
   user: User
+  fontbold?: boolean
 }
 
 const UserMiniInfo: React.FC<UserMiniInfoProps> = ({
-  user
+  user,
+  fontbold
 }) => {
 
   const hundleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -33,10 +35,14 @@ const UserMiniInfo: React.FC<UserMiniInfoProps> = ({
             width={25} height={25} 
             className="rounded-full"
           />
-          <span className="
+          {/* <span className="
             mx-2
-          ">{user.name}</span>
-        </span>
+          ">{user.name}</span> */}
+          <span className={`
+              mx-2
+              ${fontbold && "font-bold"}
+            `}>{user.name}</span>
+          </span>
       </span>
     </div>
    );
