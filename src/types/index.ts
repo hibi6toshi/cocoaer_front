@@ -26,6 +26,8 @@ export type FavoritableType = "Article" | "Project" | "Forum";
 
 export type contentType =  "Article" | "Project" | "Forum";
 
+export type CommentableType =  "Article" | "Project" | "Forum";
+
 export type Article = {
   type: "Article";
   id : string;
@@ -158,4 +160,13 @@ export type PietyCategory = {
 export type PietyTarget = {
   id: string;
   name: string;
+}
+
+export type Comment = {
+  id: string;
+  user_id: string;
+  commentable_type: string;
+  commentable_id: string;
+  body: string;
+  user: User; 
 }

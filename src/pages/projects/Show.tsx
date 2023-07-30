@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Project } from "../../types";
 import ProjectInfo from "../../features/projects/ProjectInfo";
+import CommentsView from "../../features/comments/CommentsView";
 
 const loader = async (token: string,  projectId:string ) => {
   if (!projectId) {
@@ -40,12 +41,14 @@ const ShowPage = () => {
 
   return (
     <>
-      <div>
-        showProject
-      </div>
       <ProjectInfo 
         project={project}
       />
+      {/* <CommentsView 
+        commentableType="Project"
+        commentableId={project.id}
+        commentableOwner={project.user}
+      /> */}
     </>
    );
 }

@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Forum } from "../../types";
+import CommentsView from "../../features/comments/CommentsView";
 
 const loader = async (token: string,  forumId:string ) => {
   if (!forumId) {
@@ -40,6 +41,11 @@ const ShowPage = () => {
   return ( 
     <>
       <ForumInfo forum={forum}/>
+      <CommentsView 
+        commentableType="Forum"
+        commentableId={forum.id}
+        commentableOwner={forum.user}
+      />
     </>
    );
 }

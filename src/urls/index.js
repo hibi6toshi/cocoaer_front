@@ -40,6 +40,12 @@ export const favoriteIndexUrl = `${DEFAULT_API_LOCALHOST}/favorites`
 export const createFavoriteUrl = favoriteIndexUrl
 export const deleteFavoriteUrl = (fakeId) =>`${favoriteIndexUrl}/${fakeId}`
 
+// comment
+export const commentIndexUrl = (commentableType, commentableId) => `${DEFAULT_API_LOCALHOST}/${commentableType}s/${commentableId}/comments`
+export const createCommentUrl = (commentableType, commentableId) => commentIndexUrl(commentableType, commentableId)
+export const updateCommentUrl = (commentableType, commentableId, commentId) => `${commentIndexUrl(commentableType, commentableId)}/${commentId}`
+export const deleteCommentUrl = (commentableType, commentableId, commentId) => `${commentIndexUrl(commentableType, commentableId)}/${commentId}`
+
 // myPost
 export const myPostIndexUrl = `${DEFAULT_API_LOCALHOST}/my_post`
 
