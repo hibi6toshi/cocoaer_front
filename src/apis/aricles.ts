@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { articlesIndexUrl, createArticleUrl, deleteArticleUrl, editArticleUrl, showArticleUrl, updateArticleUrl } from '../urls';
 
-export const getArticles = async () => {
-  return axios.get(articlesIndexUrl)
+export const getArticles = async ({search}: {search: string}) => {
+  return axios.get(`${articlesIndexUrl}${search}`)
   .then(res => {
     return res.data
   })

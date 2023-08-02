@@ -1,8 +1,8 @@
 import axios from "axios"
 import { createForumUrl, deleteForumUrl, editForumUrl, forumsIndexUrl, showForumUrl, updateForumUrl } from "../urls/index"
 
-export const getForums = async () =>  {
-  return axios.get(forumsIndexUrl)
+export const getForums = async ({search}: {search: string}) =>  {
+  return axios.get(`${forumsIndexUrl}${search}`)
   .then(res => {
     return res.data
   })
