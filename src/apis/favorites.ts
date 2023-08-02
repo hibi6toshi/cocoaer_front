@@ -2,7 +2,7 @@ import axios from "axios"
 import { createFavoriteUrl, deleteFavoriteUrl, favoriteIndexUrl } from "../urls"
 import { FavoritableType } from "../types"
 
-export const getFavorites = async (token: string, favoritableType: FavoritableType) => {
+export const getFavorites = async (token: string, favoritableType: FavoritableType, searchParams: URLSearchParams) => {
   const headers = {
       Authorization: token,
   }
@@ -12,7 +12,7 @@ export const getFavorites = async (token: string, favoritableType: FavoritableTy
   }
 
   return axios.get( 
-    favoriteIndexUrl,
+    `${favoriteIndexUrl}?${searchParams.toString()}`,
     {
       params,
       headers

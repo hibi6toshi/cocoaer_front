@@ -170,3 +170,10 @@ export type Comment = {
   body: string;
   user: User; 
 }
+
+export type PaginationInfo = {
+  current_page : number;
+  limit_value : number;
+  total_count : number;
+  total_pages : number;
+}

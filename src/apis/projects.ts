@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { createProjectUrl, deleteProjectUrl, editProjectUrl, projectsIndexUrl, updateProjectUrl } from '../urls';
 
-export const getProjects = async () => {
-  return axios.get(projectsIndexUrl)
+export const getProjects = async ({search}: {search: string}) => {
+  return axios.get(`${projectsIndexUrl}${search}`)
   .then(res => {
     return res.data
   })
