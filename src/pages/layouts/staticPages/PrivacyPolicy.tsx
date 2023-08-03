@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
         当方が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。
       </p>
 
-      <p className="my-10 text-end">2023年01月12日 制定</p>
+      <p className="my-10 text-end">2023年08月04日 制定</p>
 
       <hr className="mb-10"/>
       <h2 className="font-bold h2 mb-3">お問い合わせ窓口</h2>
