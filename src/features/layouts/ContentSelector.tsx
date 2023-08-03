@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-// searchParamsを取得して、link先のURLに付与する。 
 const ContentSelector = () => {
   
   return ( 
