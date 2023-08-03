@@ -36,6 +36,8 @@ import { default as MyPostShow } from "../pages/myposts/Show"
 import { default as UserIndex } from "../pages/users/Index"
 import { default as UserShow } from "../pages/users/Show"
 import { default as ProfileShow } from "../pages/profiles/Show"
+import { default as PrivacyPolicy } from "../pages/layouts/staticPages/PrivacyPolicy"
+import { default as AboutPage } from "../pages/layouts/staticPages/AboutPage"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
 import { redirect } from "react-router-dom";
@@ -53,6 +55,14 @@ export const appRoutes = createBrowserRouter([
       {
         index: true, 
         element: <IndexPage />,
+      },
+      {
+        path: "privacypolicy",
+        element: <PrivacyPolicy />
+      },
+      {
+        path: "about",
+        element: <AboutPage />
       },
       {
         path: "articles",
