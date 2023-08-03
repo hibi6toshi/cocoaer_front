@@ -37,6 +37,7 @@ import { default as UserShow } from "../pages/users/Show"
 import { default as ProfileShow } from "../pages/profiles/Show"
 import { default as PrivacyPolicy } from "../pages/layouts/staticPages/PrivacyPolicy"
 import { default as TermsOfService } from "../pages/layouts/staticPages/TermsOfService"
+import { default as ContactPage } from "../pages/layouts/staticPages/ContactPage"
 import { AuthenticationGuard } from "../components/Auth0s/AuthenticationGuard";
 import AuthenticationGuardWithOutlet from "../components/Auth0s/AuthenticationGuardWithOutlet";
 import { redirect } from "react-router-dom";
@@ -60,8 +61,12 @@ export const appRoutes = createBrowserRouter([
         element: <PrivacyPolicy />
       },
       {
-        path: "TermsOfService",
+        path: "termsOfService",
         element: <TermsOfService />
+      },
+      {
+        path: "contactPage",
+        element: <ContactPage />
       },
       {
         path: "articles",

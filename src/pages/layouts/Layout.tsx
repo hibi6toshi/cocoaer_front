@@ -9,7 +9,6 @@ const Layout = () => {
     <div className="flex flex-col min-h-screen text-gray-700">
       <Toaster />
       <Navbar />
-      {/* <div className="flex-grow pb-10 pt-24"> */}
       <div className={`
         flex-grow
         pb-10
