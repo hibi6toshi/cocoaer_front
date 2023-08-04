@@ -182,15 +182,21 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 onChange={onChangeTitle}
               />
             </div>
-            <div className="thumbnail-wrapper">
+            <div className="thumbnail-wrapper mb-10">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                サムネイル
+                サムネイル(選択しない場合は、デフォルト画像が割り当てられます。)
               </label>
                 { (article.picture.url) &&
                     <img src={article.picture.url} alt="articlePicture" className="rounded-md" />
                 }
                 <input 
-                  className="mb-4" 
+                  className="
+                  block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-md file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-yellow-800 file:bg-opacity-75 file:text-white
+                  hover:file:bg-yellow-700 hover:file:bg-opacity-75" 
                   type="file" 
                   accept="image/jpeg,image/png" 
                   onChange={onChangeThumbnail}
