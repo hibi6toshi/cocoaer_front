@@ -41,7 +41,8 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)

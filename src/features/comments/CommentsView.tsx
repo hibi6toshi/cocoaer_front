@@ -60,7 +60,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return "faild"
         },
       }).then((res)=>{
         setNewCommentBody("");
@@ -84,7 +85,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
           loading: 'Sending...',
           success: 'Success',
           error: (err) => {
-            return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            return "faild"
           },
         }).then((res)=>{
           const updatedComment = res.data.data;
@@ -110,7 +112,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
           loading: 'Sending...',
           success: 'Success',
           error: (err) => {
-            return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            return "faild"
           },
         }).then((res)=>{
           const deletedComment = res.data.data;

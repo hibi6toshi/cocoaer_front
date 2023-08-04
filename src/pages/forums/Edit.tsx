@@ -81,7 +81,8 @@ const EditPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length ? err.response.data.errors[0] : 'failed'
+          // return err?.response?.data?.errors?.[0]?.length ? err.response.data.errors[0] : 'failed'
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
