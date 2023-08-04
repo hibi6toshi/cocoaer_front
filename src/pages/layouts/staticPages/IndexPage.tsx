@@ -7,7 +7,7 @@ const IndexPage = () => {
       md:max-w-3xl
     ">
       <div className="my-10">
-        <img src={`${process.env.PUBLIC_URL}/Cocoaer_logo.jpeg`} alt="jpeg" className="object-contain"/>
+        <img src={`${process.env.PUBLIC_URL}/Cocoaer_logo.jpeg`} alt="index_logo" className="object-contain"/>
       </div>
 
       <div>
@@ -29,11 +29,11 @@ const IndexPage = () => {
               </p>
               <Link to="/forums" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">フォーラムページへ</Link>
             </div>
-            <img src={`${process.env.PUBLIC_URL}/undraw_having_fun_re_vj4h.svg`} alt="SVG" className="ml-20 h-40 w-40"/>
+            <img src={`${process.env.PUBLIC_URL}/undraw_having_fun_re_vj4h.svg`} alt="forum_explain_pic" className="ml-20 h-40 w-40"/>
           </div>
     
           <div className="grid grid-cols-2 mb-60">
-            <img src={`${process.env.PUBLIC_URL}/undraw_task_re_wi3v.svg`} alt="SVG" className="ml-20 h-40 w-40"/>
+            <img src={`${process.env.PUBLIC_URL}/undraw_task_re_wi3v.svg`} alt="project_explain_pic" className="ml-20 h-40 w-40"/>
             <div>
               <h2 className="font-bold mb-6">
                 やることは決まったけど実施できるか不安？<br />
@@ -57,7 +57,7 @@ const IndexPage = () => {
               </p>
               <Link to="/articles" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">孝行一覧ページへ</Link>
             </div>
-            <img src={`${process.env.PUBLIC_URL}/undraw_grandma_re_rnv1.svg`} alt="SVG" className="ml-20 h-40 w-40"/>
+            <img src={`${process.env.PUBLIC_URL}/undraw_grandma_re_rnv1.svg`} alt="article_explain_pic" className="ml-20 h-40 w-40"/>
           </div>
         </div>
       </div>
