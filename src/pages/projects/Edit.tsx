@@ -51,11 +51,11 @@ const EditPage = () => {
           console.log(e)
           if(e?.response?.status === 404){
             toast.error("データが見つかりませんでした。");
-            navigate("/forums")
+            navigate("/projects")
             return ;
           }
           toast.error("something went wrong");
-          navigate("/forums")
+          navigate("/fprojects")
         })
     }
     initAction()

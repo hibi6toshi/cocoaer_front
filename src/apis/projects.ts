@@ -18,10 +18,10 @@ export const getProject = async (token: string, projectId: string) =>{
   }
 
   return axios.get(`${projectsIndexUrl}/${projectId}`, headers)
-  .then(res => {
-    return res.data
-  })
-  .catch((e: any) => console.error(e))
+  // .then(res => {
+  //   return res.data
+  // })
+  // .catch((e: any) => console.error(e))
 }
 
 export const createProject = async (token: string, formData: FormData) =>{
