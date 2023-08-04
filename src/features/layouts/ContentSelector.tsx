@@ -20,7 +20,7 @@ const ContentSelector = () => {
             `
           }
         >
-          articles
+          C o c o
         </NavLink>
         <NavLink
           to="/projects"
@@ -36,7 +36,7 @@ const ContentSelector = () => {
             `
           }
         >
-          projects
+          プロジェクト
         </NavLink>
         <NavLink
           to="/forums"
@@ -53,7 +53,7 @@ const ContentSelector = () => {
             `
           }
         >
-          forums
+          フォーラム
         </NavLink>
       </div>
     </div>

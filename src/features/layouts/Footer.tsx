@@ -8,13 +8,13 @@ const Footer = () => {
       </span>
       <ul className="flex flex-wrap items-center mt-3 text-sm font-medium sm:mt-0">
         <li>
-            <Link to="/privacypolicy" className="mr-4 hover:underline md:mr-6">Privacy Policy</Link>
+            <Link to="/privacypolicy" className="mr-4 hover:underline md:mr-6">プライバシーポリシー</Link>
         </li>
         <li>
-            <Link to="/termsOfService" className="mr-4 hover:underline md:mr-6">Terms of service</Link>
+            <Link to="/termsOfService" className="mr-4 hover:underline md:mr-6">利用規約</Link>
         </li>
         <li>
-            <Link to="/contactPage" className="mr-4 hover:underline md:mr-6">Contact</Link>
+            <Link to="/contactPage" className="mr-4 hover:underline md:mr-6">お問合せ</Link>
         </li>
       </ul>
       </div>

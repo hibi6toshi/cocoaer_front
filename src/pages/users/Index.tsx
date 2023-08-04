@@ -4,18 +4,19 @@ import { getUser } from "../../apis/users";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserInfoHeader from "../../components/Users/UserInfo";
+import Loading from "../../components/Elements/Loading";
 
 const navTagDatas = [
   {
-    label: "articles",
+    label: "C o c o",
     navTo: "articles"
   },
   {
-    label: "projects",
+    label: "プロジェクト",
     navTo: "projects"
   },
   {
-    label: "forums",
+    label: "フォーラム",
     navTo: "forums"
   },
 ]
@@ -46,7 +47,7 @@ const IndexPage = () => {
   },[userId])
 
   if(isLoading===true){
-    return <div>Loading...</div>
+    return <div><Loading /></div>
   }
 
   if(user === undefined){

@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEditProject, updateProject } from "../../apis/projects";
+import Loading from "../../components/Elements/Loading";
 
 const initFormProject: FormProject = {
   id: "",
@@ -50,11 +51,11 @@ const EditPage = () => {
           console.log(e)
           if(e?.response?.status === 404){
             toast.error("データが見つかりませんでした。");
-            navigate("/forums")
+            navigate("/projects")
             return ;
           }
           toast.error("something went wrong");
-          navigate("/forums")
+          navigate("/fprojects")
         })
     }
     initAction()
@@ -84,7 +85,8 @@ const EditPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          // return err?.response?.data?.errors[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
@@ -96,11 +98,10 @@ const EditPage = () => {
     setIsSending(false);
   }
 
-  if(formProject.id === ""){return <div>Loading...</div> }
+  if(formProject.id === ""){return <div><Loading /></div> }
 
   return ( 
     <div>
-      new project
       <ProjectForm 
         project={formProject}
         dispatch={setFormProject}

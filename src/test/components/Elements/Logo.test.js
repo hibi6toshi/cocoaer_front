@@ -20,7 +20,7 @@ describe("Link", ()=>{
     ],
     { initialEntries: ["/logo"] });
     render(<RouterProvider router={router} />);
-    const logo = screen.getByText("Logo");
+    const logo = screen.getByAltText("header_logo");
 
     // ************************************************************************************
     // Warning: An update to RouterProvider inside a test was not wrapped in act(...).

@@ -2,29 +2,46 @@ import ForumInfo from "../../features/forums/ForumInfo";
 import { getForum } from "../../apis/forums";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Forum } from "../../types";
 import CommentsView from "../../features/comments/CommentsView";
+import Loading from "../../components/Elements/Loading";
+import { toast } from "react-hot-toast";
 
 const loader = async (token: string,  forumId:string ) => {
   if (!forumId) {
     throw new Error("No id provided");
   }
-  const forum = await getForum(token, forumId);
-  return forum.data
+  
+  return await getForum(token, forumId);
 }
 
 const ShowPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { forumId } = useParams();
   const [forum, setForum] = useState<Forum>();
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if(forumId == null) return 
     const initAction = async () => {
       const token = await getAccessTokenSilently();
-      const forum = await loader(token, forumId);
-      setForum(forum);
+
+      loader(token, forumId)
+        .then(res => {
+          // 成功時の処理
+          setForum(res.data.data);
+        })
+        .catch((e: any)=>{
+          console.log(e)
+          if(e?.response?.status === 404){
+            toast.error("データが見つかりませんでした。");
+            navigate("/forums")
+            return ;
+          }
+          toast.error("something went wrong");
+          navigate("/forums")
+        }); 
     }
     initAction()
   }
@@ -35,7 +52,7 @@ const ShowPage = () => {
   }
 
   if(forum == null){
-    return <div>loading...</div>
+    return <div><Loading /></div>
   }
 
   return ( 

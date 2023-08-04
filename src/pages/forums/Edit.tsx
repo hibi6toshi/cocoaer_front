@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getEditForum, updateForum } from "../../apis/forums";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../../components/Elements/Loading";
 
 const initFormForum: FormForum = {
   id: "",
@@ -80,7 +81,8 @@ const EditPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length ? err.response.data.errors[0] : 'failed'
+          // return err?.response?.data?.errors?.[0]?.length ? err.response.data.errors[0] : 'failed'
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
@@ -92,7 +94,7 @@ const EditPage = () => {
     setIsSending(false);
   }
 
-  if(formForum.id==="") return <div>loading...</div>
+  if(formForum.id==="") return <div><Loading /></div>
 
   return (
     <>

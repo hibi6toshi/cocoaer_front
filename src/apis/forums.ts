@@ -18,10 +18,10 @@ export const getForum = async (token: string, forumId: string) => {
   }
 
   return axios.get(showForumUrl(forumId), headers)
-  .then(res => {
-    return res.data
-  })
-  .catch((e: any) => console.error(e))
+  // .then(res => {
+  //   return res.data
+  // })
+  // .catch((e: any) => console.error(e))
 }
 
 export const createForum = async (token: string, formData: FormData) => {

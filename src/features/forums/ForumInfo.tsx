@@ -39,7 +39,8 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
@@ -101,8 +102,8 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
           
           <hr />
 
-          <div className="my-4">
-            <div>{forum.body}</div>
+          <div className="my-4 whitespace-pre-wrap">
+            {forum.body}
           </div>
           <hr />
 

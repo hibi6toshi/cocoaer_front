@@ -6,6 +6,7 @@ import CommentCard from "./CommentCard";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
 import CommentForm from "./CommentForm";
+import Loading from "../../components/Elements/Loading";
 
 interface CommentsViewProps {
   commentableType: CommentableType;
@@ -59,7 +60,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return "faild"
         },
       }).then((res)=>{
         setNewCommentBody("");
@@ -83,7 +85,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
           loading: 'Sending...',
           success: 'Success',
           error: (err) => {
-            return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            return "faild"
           },
         }).then((res)=>{
           const updatedComment = res.data.data;
@@ -109,7 +112,8 @@ const CommentsView: React.FC<CommentsViewProps> = ({
           loading: 'Sending...',
           success: 'Success',
           error: (err) => {
-            return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+            return "faild"
           },
         }).then((res)=>{
           const deletedComment = res.data.data;
@@ -158,7 +162,7 @@ const CommentsView: React.FC<CommentsViewProps> = ({
         )
       }
       { isLoading 
-        ? <div>Loading...</div> 
+        ? <Loading />
         : comments?.map((comment: Comment)=>(
             <CommentCard
               comment={comment}

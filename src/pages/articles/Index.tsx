@@ -1,8 +1,9 @@
 import { getArticles } from "../../apis/aricles";
-import { LoaderFunction, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { LoaderFunction, LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom";
 import ArticleCard from "../../features/articles/ArticleCard";
 import { Article, PaginationInfo } from "../../types";
 import Pagination from "../../components/Pagination/Pagination";
+import Button from "../../components/Elements/Button";
 
 export const loader: LoaderFunction = async ({ request } :LoaderFunctionArgs) => {
   const articles = await getArticles((new URL(request.url)));
@@ -12,6 +13,7 @@ export const loader: LoaderFunction = async ({ request } :LoaderFunctionArgs) =>
 
 const IndexPage = () => {
   const { articles, pagination_info }  = useLoaderData() as {articles: Article[], pagination_info: PaginationInfo };
+  const navigate = useNavigate();
 
   if (articles.length === 0 ){
     return (
@@ -25,6 +27,15 @@ const IndexPage = () => {
 
   return ( 
     <>
+      <div className="flex justify-center">
+        <div className="w-40">
+          <Button 
+            label="新規作成"
+            onClick={()=>navigate("/articles/new")}
+            rounded_full
+          />
+        </div>
+      </div>
       <div className="
         container 
         mx-auto

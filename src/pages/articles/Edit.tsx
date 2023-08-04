@@ -5,6 +5,7 @@ import { useEffect, useReducer, useState } from "react";
 import { getEditArticle, updateArticle } from "../../apis/aricles";
 import ArticleForm from "../../features/articles/ArticleForm";
 import { toast } from "react-hot-toast";
+import Loading from "../../components/Elements/Loading";
 
 const initFormArticle: FormArticle = {
   id: "",
@@ -86,7 +87,8 @@ const EditPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return "faild"
         },
       }).then((res)=>{
         console.log(res)
@@ -98,7 +100,7 @@ const EditPage = () => {
     setIsSending(false);
   };
 
-  if(formArticle.id==="") return <div>loading...</div>
+  if(formArticle.id==="") return <div><Loading /></div>
 
   return ( 
     <div>

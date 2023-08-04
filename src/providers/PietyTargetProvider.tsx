@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { PietyTarget } from "../types";
 import { getPietyTargets } from "../apis/pietyTargets";
+import Loading from "../components/Elements/Loading";
 
 interface Props {
   children?: React.ReactNode
@@ -26,7 +27,7 @@ const PietyTargetProvider: React.FC<Props> = ({ children }) => {
     fetchData();
   }, []);
 
-  if (pietyTargets === null) return <div>Loading...</div>; 
+  if (pietyTargets === null) return <div><Loading /></div>; 
   return (
     <PietyTargetContext.Provider value={pietyTargets}>
       {children}

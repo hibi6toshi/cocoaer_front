@@ -8,6 +8,7 @@ import { BiPencil } from "react-icons/bi";
 import ProfileForm from "../../features/profile/ProfileForm";
 import { toast } from "react-hot-toast";
 import { useUserContext } from "../../providers/UserProvider";
+import Loading from "../../components/Elements/Loading";
 
 const initFormUser = {
   id : "",
@@ -69,7 +70,8 @@ const ShowPage = () => {
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
@@ -89,7 +91,7 @@ const ShowPage = () => {
 
   if(isLoading){
     return (
-      <div>Loading...</div>
+      <div><Loading /></div>
     );
   }
 

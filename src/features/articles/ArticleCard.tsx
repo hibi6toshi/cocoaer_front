@@ -39,7 +39,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         loading: 'Sending...',
         success: 'Success',
         error: (err) => {
-          return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : 'faild'
+          return 'faild'
         },
       }).then((res)=>{
         console.log(res)
@@ -95,7 +96,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           : 
           null
         }
-        <p className="text-base break-all h-24 overflow-hidden">
+        <p className="whitespace-pre-wrap text-base break-all h-40 overflow-hidden">
           {article.body}
         </p>
       </div>
