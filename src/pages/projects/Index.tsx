@@ -1,8 +1,9 @@
-import { LoaderFunction, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { LoaderFunction, LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom";
 import { getProjects } from "../../apis/projects";
 import ProjectCard from "../../features/projects/ProjectCard";
 import { PaginationInfo, Project } from "../../types";
 import Pagination from "../../components/Pagination/Pagination";
+import Button from "../../components/Elements/Button";
 
 export const loader: LoaderFunction = async ({ request } :LoaderFunctionArgs) => {
   const projects = await getProjects((new URL(request.url)));
@@ -12,6 +13,7 @@ export const loader: LoaderFunction = async ({ request } :LoaderFunctionArgs) =>
 
 const IndexPage = () => {
   const { projects, pagination_info} = useLoaderData() as { projects: Project[], pagination_info: PaginationInfo};
+  const navigate = useNavigate();
 
   if (projects.length === 0 ){
     return (
@@ -26,6 +28,16 @@ const IndexPage = () => {
 
   return (
     <>
+      <div className="flex justify-center">
+        <div className="w-40">
+          <Button
+            label="新規作成"
+            onClick={()=>navigate("/projects/new")}
+            rounded_full
+          />
+        </div>
+      </div>
+    
       <div className="
         max-w-4xl
         mx-auto

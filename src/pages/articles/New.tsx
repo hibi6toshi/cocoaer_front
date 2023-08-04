@@ -68,7 +68,7 @@ const NewPage = () => {
   };
 
   return (
-    <div>new{}
+    <div>
       <ArticleForm 
         article={formArticle}
         dispatch={setFormArticle}

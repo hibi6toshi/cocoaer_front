@@ -4,6 +4,7 @@ interface ButtonProps {
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
+  rounded_full?: boolean;
 }
 
 const Button:React.FC<ButtonProps> = ({
@@ -12,6 +13,7 @@ const Button:React.FC<ButtonProps> = ({
   disabled,
   outline,
   small,
+  rounded_full,
 }) => {
   return (
     <button 
@@ -22,7 +24,6 @@ const Button:React.FC<ButtonProps> = ({
         relative
         disabled:opacity-70
         disabled:cursor-not-allowed
-        rounded-lg
         hover:opacity-80
         transition
         w-full
@@ -33,6 +34,7 @@ const Button:React.FC<ButtonProps> = ({
         ${small ? 'text-sm' : 'text-md'}
         ${small ? 'font-light' : 'font-semibold'}
         ${small ? 'border-[1px]' : 'border-2'}
+        ${rounded_full ?  "rounded-full" : "rounded-lg"}
       `}
     >
       {label}

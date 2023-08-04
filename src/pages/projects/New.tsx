@@ -66,7 +66,6 @@ const NewPage = () => {
 
   return ( 
     <div>
-      new project
       <ProjectForm 
         project={formProject}
         dispatch={setFormProject}
