@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { User } from '@auth0/auth0-react';
-import { showUserUrl, userArticlesIndexUrl, userCreateUrl, userForumsIndexUrl, userProjectsIndexUrl } from '../urls';
+import { deleteUserUrl, showUserUrl, userArticlesIndexUrl, userCreateUrl, userForumsIndexUrl, userProjectsIndexUrl } from '../urls';
 
 export const createUser = async(token: string, user: User) => {
   const headers = {
@@ -65,4 +65,18 @@ export const getUserForums =async (token: string, userId: string) => {
   }
 
   return axios.get(userForumsIndexUrl(userId), headers)
+}
+
+export const deleteUser = async (token: string, userId: string) => {
+  const headers = {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
+  return axios.delete(
+    deleteUserUrl(userId),
+    headers 
+  )
 }

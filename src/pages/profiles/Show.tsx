@@ -9,6 +9,8 @@ import ProfileForm from "../../features/profile/ProfileForm";
 import { toast } from "react-hot-toast";
 import { useUserContext } from "../../providers/UserProvider";
 import Loading from "../../components/Elements/Loading";
+import Button from "../../components/Elements/Button";
+import { deleteUser } from "../../apis/users";
 
 const initFormUser = {
   id : "",
@@ -25,7 +27,7 @@ const loader = (token: string) => {
 
 const ShowPage = () => {
 
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, logout } = useAuth0();
   const [ profile, setProfile ] = useState<User>();
   const [ isLoading, setIsLoading ] = useState(false);
   const [ editMode, setEditMode ] = useState(false);
@@ -54,7 +56,6 @@ const ShowPage = () => {
 
   const submitAction = async () => {
     if (isSending === true) return 
-    console.log(formProfile);
     let avatarChangedFlg = !(profile?.avatar?.url===formProfile.avatar.url);
 
     setIsSending(true);
@@ -78,6 +79,37 @@ const ShowPage = () => {
         setProfile(res.data.data);
         setUser(res.data.data);
         setEditMode(false);
+      }).catch(e =>{
+        console.log(e)
+      }        
+    );
+    setIsSending(false);
+  }
+
+
+  const deleteUserAction = async () => {
+    if (isSending === true) return 
+
+    let checkSaveFlg = window.confirm('退会してよろしいですか？');
+    if (!checkSaveFlg){
+      return 
+    } 
+
+    setIsSending(true);
+    const token = await getAccessTokenSilently(); 
+
+    await toast.promise(
+      deleteUser(token, String(profile?.id)), 
+      {
+        loading: 'Sending...',
+        success: 'Success',
+        error: (err) => {
+          // return err?.response?.data?.errors?.[0]?.length >0 ? err.response.data.errors[0] : "faild"
+          return 'faild'
+        },
+      }).then((res)=>{
+        setUser(null);
+        logout();
       }).catch(e =>{
         console.log(e)
       }        
@@ -116,8 +148,25 @@ const ShowPage = () => {
   }else{
     return ( 
       <div className="container mx-auto px-10 sm:px-20">
-        <div className="font-bold mt-6">プロフィール <span className="ml-3"><IconButton icon={BiPencil} onClickIcon={onClickModeButton}/></span></div>
+        <div className="font-bold mt-6">プロフィール</div>
         <UserInfoHeader user={profile}/>
+        
+        <div className="flex justify-center mt-40">
+          <div className="w-40 mx-20">
+            <Button 
+              label="編集する"
+              onClick={onClickModeButton}
+            />
+          </div>
+
+          <div className="w-40 mx-20">
+            <Button 
+              label="退会する"
+              onClick={deleteUserAction}
+              outline
+            />
+          </div>
+        </div>
       </div>
     );
   }
