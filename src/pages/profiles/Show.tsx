@@ -8,6 +8,7 @@ import { BiPencil } from "react-icons/bi";
 import ProfileForm from "../../features/profile/ProfileForm";
 import { toast } from "react-hot-toast";
 import { useUserContext } from "../../providers/UserProvider";
+import Loading from "../../components/Elements/Loading";
 
 const initFormUser = {
   id : "",
@@ -89,7 +90,7 @@ const ShowPage = () => {
 
   if(isLoading){
     return (
-      <div>Loading...</div>
+      <div><Loading /></div>
     );
   }
 

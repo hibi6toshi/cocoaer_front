@@ -5,6 +5,7 @@ import { useEffect, useReducer, useState } from "react";
 import { getEditArticle, updateArticle } from "../../apis/aricles";
 import ArticleForm from "../../features/articles/ArticleForm";
 import { toast } from "react-hot-toast";
+import Loading from "../../components/Elements/Loading";
 
 const initFormArticle: FormArticle = {
   id: "",
@@ -98,7 +99,7 @@ const EditPage = () => {
     setIsSending(false);
   };
 
-  if(formArticle.id==="") return <div>loading...</div>
+  if(formArticle.id==="") return <div><Loading /></div>
 
   return ( 
     <div>

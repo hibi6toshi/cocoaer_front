@@ -6,6 +6,7 @@ import CommentCard from "./CommentCard";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
 import CommentForm from "./CommentForm";
+import Loading from "../../components/Elements/Loading";
 
 interface CommentsViewProps {
   commentableType: CommentableType;
@@ -158,7 +159,7 @@ const CommentsView: React.FC<CommentsViewProps> = ({
         )
       }
       { isLoading 
-        ? <div>Loading...</div> 
+        ? <Loading />
         : comments?.map((comment: Comment)=>(
             <CommentCard
               comment={comment}

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Project } from "../../types";
 import ProjectInfo from "../../features/projects/ProjectInfo";
 import CommentsView from "../../features/comments/CommentsView";
+import Loading from "../../components/Elements/Loading";
 
 const loader = async (token: string,  projectId:string ) => {
   if (!projectId) {
@@ -36,7 +37,7 @@ const ShowPage = () => {
   }
 
   if(project == null){
-    return <div>loading...</div>
+    return <div><Loading /></div>
   }
 
   return (

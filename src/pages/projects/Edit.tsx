@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEditProject, updateProject } from "../../apis/projects";
+import Loading from "../../components/Elements/Loading";
 
 const initFormProject: FormProject = {
   id: "",
@@ -96,7 +97,7 @@ const EditPage = () => {
     setIsSending(false);
   }
 
-  if(formProject.id === ""){return <div>Loading...</div> }
+  if(formProject.id === ""){return <div><Loading /></div> }
 
   return ( 
     <div>

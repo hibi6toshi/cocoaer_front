@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Forum } from "../../types";
 import CommentsView from "../../features/comments/CommentsView";
+import Loading from "../../components/Elements/Loading";
 
 const loader = async (token: string,  forumId:string ) => {
   if (!forumId) {
@@ -35,7 +36,7 @@ const ShowPage = () => {
   }
 
   if(forum == null){
-    return <div>loading...</div>
+    return <div><Loading /></div>
   }
 
   return ( 

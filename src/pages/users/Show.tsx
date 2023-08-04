@@ -6,6 +6,7 @@ import { getUserArticles, getUserForums, getUserProjects } from "../../apis/user
 import ArticleCard from "../../features/articles/ArticleCard";
 import ProjectCard from "../../features/projects/ProjectCard";
 import ForumCard from "../../features/forums/ForumCard";
+import Loading from "../../components/Elements/Loading";
 
 interface ShowPageProps {
   contentType : contentType;
@@ -50,7 +51,7 @@ const ShowPage: React.FC<ShowPageProps> = ({
 
   if(isLoading===true){
     return (
-      <div>Loading...</div>
+      <div><Loading /></div>
     )
   }
 

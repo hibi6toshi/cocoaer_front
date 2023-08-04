@@ -6,6 +6,7 @@ import ArticleCard from "../../features/articles/ArticleCard";
 import ProjectCard from "../../features/projects/ProjectCard";
 import ForumCard from "../../features/forums/ForumCard";
 import { getMyPosts } from "../../apis/myPost";
+import Loading from "../../components/Elements/Loading";
 
 const loader = async (token :string, contentType: contentType ) => {
   if (!contentType) {
@@ -40,7 +41,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
 
   if(isLoading) {
     return (
-      <div>Loading....</div>
+      <div><Loading /></div>
     )
   }
 

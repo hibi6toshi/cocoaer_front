@@ -7,6 +7,7 @@ import ProjectCard from "../../features/projects/ProjectCard";
 import ForumCard from "../../features/forums/ForumCard";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
+import Loading from "../../components/Elements/Loading";
 
 const loader = async (token :string, favoritableType: FavoritableType, searchParams: URLSearchParams) => {
   if (!favoritableType) {
@@ -47,7 +48,7 @@ const ShowPage: React.FC< ShowPageProps> = ({
   let body;
 
   if(isLoading) {
-    return <div>Loading....</div>
+    return <div><Loading /></div>
   }
 
   if(favorites.length===0){

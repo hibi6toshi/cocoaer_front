@@ -5,6 +5,7 @@ import MenuItem from "../../components/Elements/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { createUser } from '../../apis/users'
 import { useUserContext } from "../../providers/UserProvider";
+import Loading from "../../components/Elements/Loading";
 
 const UserMenu = () => {
 
@@ -35,7 +36,7 @@ const UserMenu = () => {
     <div>
       {
         isLoading
-          ? "Loading..."
+          ? <Loading />
           :
            isAuthenticated 
             ? <div className="group relative inline-block text-left" tabIndex={-1}>

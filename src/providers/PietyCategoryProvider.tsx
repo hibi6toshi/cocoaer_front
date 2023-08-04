@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { PietyCategory } from "../types";
 import { getPietyCategorys } from "../apis/pietyCategorys";
+import Loading from "../components/Elements/Loading";
 
 interface Props {
   children?: React.ReactNode
@@ -26,7 +27,7 @@ const PietyCategoryProvider: React.FC<Props> = ({ children }) => {
     fetchData();
   }, []);
 
-  if (pietyCategorys === null) return <div>Loading...</div>; 
+  if (pietyCategorys === null) return <div><Loading /></div>; 
 
   return (
     <PietyCategoryContext.Provider value={pietyCategorys}>
