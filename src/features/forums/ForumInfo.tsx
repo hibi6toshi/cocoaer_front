@@ -102,8 +102,8 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
           
           <hr />
 
-          <div className="my-4">
-            <div>{forum.body}</div>
+          <div className="my-4 whitespace-pre-wrap">
+            {forum.body}
           </div>
           <hr />
 

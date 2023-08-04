@@ -118,7 +118,7 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
         <UserMiniInfo user={article.user} />
       </div>
       <hr className="mb-2"/>
-      <div>
+      <div className="whitespace-pre-wrap">
         {article.body}
       </div>
    </div>

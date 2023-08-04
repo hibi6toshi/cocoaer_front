@@ -96,7 +96,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           : 
           null
         }
-        <p className="text-base break-all h-24 overflow-hidden">
+        <p className="whitespace-pre-wrap text-base break-all h-40 overflow-hidden">
           {article.body}
         </p>
       </div>

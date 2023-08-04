@@ -69,7 +69,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
           <div className="
             font-bold
             text-xl
-            mb-4
+            my-2
           ">
             {project.title}
           </div>
@@ -98,7 +98,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
         </div>
         <hr />
 
-        <div className="my-4">
+        <div className="my-4 whitespace-pre-wrap">
           <div>{project.body}</div>
         </div>
         <hr />
