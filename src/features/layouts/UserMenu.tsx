@@ -81,13 +81,13 @@ const UserMenu = () => {
                     </div>
 
                     <div className="py-1">
-                      <MenuItem onClick={()=>navigate("/favorites")} label="Favorites"/>
-                      <MenuItem onClick={()=>navigate("/myposts")} label="Myposts"/>
-                      <MenuItem onClick={()=>navigate("/Profile")} label="Profile"/>
+                      <MenuItem onClick={()=>navigate("/favorites")} label="お気に入り"/>
+                      <MenuItem onClick={()=>navigate("/myposts")} label="自分の投稿"/>
+                      <MenuItem onClick={()=>navigate("/Profile")} label="プロフィール"/>
                     </div>
 
                     <div className="py-1">
-                      <MenuItem onClick={()=>logout()} label="Sign out" />
+                      <MenuItem onClick={()=>logout()} label="サインアウト" />
                     </div>
                   </div>
                 </div>
@@ -118,7 +118,7 @@ const UserMenu = () => {
                     border-blue-700 border-opacity-75
                   "
                 />
-                <div className="px-2 text-blue-700 text-opacity-75">Login</div>
+                <div className="px-2 text-blue-700 text-opacity-75">ログイン</div>
               </div>
       }
     </div>

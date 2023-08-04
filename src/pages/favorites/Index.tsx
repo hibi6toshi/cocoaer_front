@@ -3,15 +3,15 @@ import NavTabs from "../../components/Elements/NavTabs";
 
 const navTagDatas = [
   {
-    label: "articles",
+    label: "C o C o",
     navTo: "articles"
   },
   {
-    label: "projects",
+    label: "プロジェクト",
     navTo: "projects"
   },
   {
-    label: "forums",
+    label: "フォーラム",
     navTo: "forums"
   },
 ]

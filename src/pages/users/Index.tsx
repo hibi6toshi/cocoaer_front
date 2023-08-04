@@ -8,15 +8,15 @@ import Loading from "../../components/Elements/Loading";
 
 const navTagDatas = [
   {
-    label: "articles",
+    label: "C o c o",
     navTo: "articles"
   },
   {
-    label: "projects",
+    label: "プロジェクト",
     navTo: "projects"
   },
   {
-    label: "forums",
+    label: "フォーラム",
     navTo: "forums"
   },
 ]
