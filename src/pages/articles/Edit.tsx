@@ -75,7 +75,16 @@ const EditPage = () => {
     const formData = new FormData();
     formData.append("article[title]", formArticle.title);
     formData.append("article[body]", formArticle.body);
-    if (pitureChangedFlg && formArticle.imgPicture) formData.append("article[picture]", formArticle.imgPicture);
+    if (pitureChangedFlg){
+      if(formArticle.imgPicture){
+        formData.append("article[picture]", formArticle.imgPicture);
+      }else{
+        formData.append("article[picture]", "");
+      }
+    }
+
+
+
     formData.append("article[piety_category_id]", formArticle.piety_category_id);
     formData.append("article[piety_target_id]", formArticle.piety_target_id);
     if (formArticle.days) formData.append("article[days]", formArticle.days);

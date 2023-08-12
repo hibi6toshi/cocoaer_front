@@ -23,7 +23,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     if (e.target.files && e.target.files[0]){
       dispatch({ imgAvatar : e.target.files[0] , avatar: {url: URL.createObjectURL(e.target.files[0]) }})
     }else{
-      dispatch({ imgAvatar : null , picture: {url: ""}})
+      dispatch({ imgAvatar : null , avatar: {url: null}})
     }
   }
 
@@ -43,7 +43,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
   }
 
   const onChangIntroduction = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({ introduction: e.target.value});
+    dispatch({ introduction: String(e.target.value)});
   }
 
   const submitButtonDisable = ((profile.name.length === 0)  || isSending)
@@ -62,8 +62,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
               サムネイル
             </label>
             <div className="flex flex-col justify-center items-center">
-              { (  profile.avatar.url) &&
+              { ( profile.avatar.url ) ? 
                   <img src={ profile.avatar.url} alt="profileAvatar" className="self-center flex-shrink-0 w-24 h-24 rounded-full md:justify-self-start" />
+                  :
+                  <img src={ `${process.env.PUBLIC_URL}/default_avatar.png` } alt="profileAvatar" className="self-center flex-shrink-0 w-24 h-24 rounded-full md:justify-self-start" />
               }
               <div>
                 <input 

@@ -63,7 +63,14 @@ const ShowPage = () => {
     const formData = new FormData();
     formData.append("profile[name]", formProfile.name);
     formData.append("profile[introduction]", formProfile.introduction);
-    if (avatarChangedFlg && formProfile.imgAvatar) formData.append("profile[avatar]", formProfile.imgAvatar);
+    if (avatarChangedFlg){
+      if(formProfile.imgAvatar){
+        formData.append("profile[avatar]", formProfile.imgAvatar);
+      }else{
+        formData.append("profile[avatar]", "");
+      }
+    }
+
 
     await toast.promise(
       updateProfile(token, formData), 

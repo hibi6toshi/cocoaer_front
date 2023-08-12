@@ -93,7 +93,7 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
       <div>
         {article.picture ?
           <img 
-            src={article.picture.url} 
+            src={article.picture.url ? article.picture.url : `${process.env.PUBLIC_URL}/default_article.jpg`} 
             width={800}
             height={500}
             className="
