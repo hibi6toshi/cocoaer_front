@@ -1,4 +1,5 @@
-const DEFAULT_API_LOCALHOST = 'http://localhost:3010/api/v1'
+const DEFAULT_API_LOCALHOST = 'https://api.cocoaer.net/api/v1'
+// const DEFAULT_API_LOCALHOST = 'http://localhost:3010/api/v1'
 
 // users
 export const userCreateUrl = `${DEFAULT_API_LOCALHOST}/users`
