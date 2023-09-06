@@ -18,8 +18,17 @@ const IndexPage = () => {
   if (articles.length === 0 ){
     return (
       <div className="flex justify-center">
-        <div className="mt-32 font-bold text-lg">
-          "No Article found"
+        <div>
+          <div className="w-40">
+            <Button 
+              label="新規作成"
+              onClick={()=>navigate("/articles/new")}
+              rounded_full
+            />
+          </div>
+          <div className="mt-32 font-bold text-lg">
+            "No Article found"
+          </div>
         </div>
       </div>
     )

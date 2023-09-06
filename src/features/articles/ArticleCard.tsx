@@ -92,7 +92,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>
         </div>
         {article.picture ?
-          <img src={article.picture.url} className="rounded-md mb-2" alt="thumbnail" />
+          <img src={article.picture.url ? article.picture.url : `${process.env.PUBLIC_URL}/default_article.jpg`} className="rounded-md mb-2" alt="thumbnail" />
           : 
           null
         }

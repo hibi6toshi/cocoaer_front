@@ -31,7 +31,7 @@ const UserMiniInfo: React.FC<UserMiniInfoProps> = ({
           hover:underline"
       >
         <span className="flex flex-row" onClick={hundleOnClick}>
-          <img src={user?.avatar?.url} alt="userIcon" 
+          <img src={user?.avatar?.url ? user?.avatar?.url : `${process.env.PUBLIC_URL}/default_avatar.png`} alt="userIcon" 
             width={25} height={25} 
             className="rounded-full"
           />

@@ -59,7 +59,7 @@ const UserMenu = () => {
                     size={24}
                     className="p-1"
                   />
-                  <img src={user?.avatar?.url} alt="userIcon" 
+                  <img src={user?.avatar?.url ? user?.avatar?.url : `${process.env.PUBLIC_URL}/default_avatar.png`} alt="userIcon" 
                     width={25} height={25} 
                     className="self-center flex-shrink-0 w-6 h-6 rounded-full md:justify-self-start"
                   />
