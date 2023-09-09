@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import Modal from "../Modals/Modal";
 import IconButton from "../Elements/IconButton";
 import { Form, useLoaderData } from "react-router-dom";
-import { Article, Option, PaginationInfo } from "../../types";
+import { ArticleQParams, Option, PaginationInfo } from "../../types";
 import useCategorys from "../../hooks/useCategorys";
 import useTargets from "../../hooks/useTargets";
-import Select, { MultiValue, SingleValue } from "react-select";
+import Select from "react-select";
 import Button from "../Elements/Button";
 
 const ArticleSearchModal = () => {
-  const [showModal, setShowModal] = useState(false);
-  const { articles, pagination_info ,q} = useLoaderData() as {articles: Article[],pagination_info: PaginationInfo, q: any };
+  const [ showModal, setShowModal ] = useState(false);
+  const { pagination_info, q } = useLoaderData() as { pagination_info: PaginationInfo, q: ArticleQParams };
 
   const [ cost_lteq, setCost_lteq ] = useState(q?.cost_lteq);
   const [ cost_gteq, setCost_gteq ] = useState(q?.cost_gteq);
@@ -21,21 +21,21 @@ const ArticleSearchModal = () => {
   const categoryOptions: Option[] = getPietyCategorysDict();
   const targetOptions: Option[] = getPietyTargetsDict();
 
-  const categoryDefaultValue: Option[]| null = 
-    categoryOptions?.filter((category: Option)=> (
+  const categoryDefaultValue: Option[] | null =
+    categoryOptions?.filter((category: Option) => (
       q?.piety_category_id_in.includes(category.value)
     ))
 
-  const targetDefaultValue: Option[] | null = 
-    targetOptions?.filter((target: Option)=> (
+  const targetDefaultValue: Option[] | null =
+    targetOptions?.filter((target: Option) => (
       q?.piety_target_id_in.includes(target.value)
     ))
 
   const deleteHeadZero = (eTgtVal: string): string => {
-    if(eTgtVal.length <= 1) {
+    if (eTgtVal.length <= 1) {
       return eTgtVal;
     } else {
-      if( eTgtVal.slice(0,1) === "0"){
+      if (eTgtVal.slice(0, 1) === "0") {
         eTgtVal = eTgtVal.slice(1);
         return deleteHeadZero(eTgtVal);
       }
@@ -60,55 +60,85 @@ const ArticleSearchModal = () => {
       <div className="col-span-2">
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-6">
           <div className="col-span-1 flex items-center">
-            <label htmlFor="q[Btitle_or_body_cont]">キーワード</label>
+            <label htmlFor="title_or_body">キーワード</label>
           </div>
           <div className="col-span-5">
             <input
-              id="q[Btitle_or_body_cont]"
-              aria-label="Search contacts"
-              placeholder="Search"
+              id="title_or_body"
+              aria-label="title_or_body"
+              placeholder="キーワード"
               type="search"
               name="q[title_or_body_cont]"
               defaultValue={q?.title_or_body_cont}
-              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              className="
+                h-10
+                border
+                mt-1
+                rounded
+                px-4
+                w-full
+                shadow
+                text-gray-700 
+                leading-tight 
+              "
             />
           </div>
           <div className="col-span-1 flex items-center">
-            <label htmlFor="q[Btitle_or_body_cont]">費用</label>
+            <label htmlFor="cost_lteq">費用</label>
           </div>
           <div className="col-span-2">
             <input
-              id="q[cost_lteq]"
-              aria-label="Search contacts"
-              placeholder="Search"
+              id="cost_gteq"
+              aria-label="cost_max"
+              placeholder="0"
               type="search"
-              name="q[cost_lteq]"
-              value={cost_lteq}
-              onChange={onChangeCost_lteq}
-              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              name="q[cost_gteq]"
+              value={cost_gteq}
+              onChange={conChangeCost_gteq}
+              className="
+                h-10
+                border
+                mt-1
+                rounded
+                px-4
+                w-full
+                shadow
+                text-gray-700 
+                leading-tight 
+              "
             />
           </div>
           <div className="col-span-1 flex justify-center items-center">
             <div>~</div>
           </div>
           <div className="col-span-2">
-            <input
-              id="q[cost_gteq]"
-              aria-label="Search contacts"
-              placeholder="Search"
+          <input
+              id="cost_lteq"
+              aria-label="cost_min"
+              placeholder="10000"
               type="search"
-              name="q[cost_gteq]"
-              value={cost_gteq}
-              onChange={conChangeCost_gteq}
-              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+              name="q[cost_lteq]"
+              value={cost_lteq}
+              onChange={onChangeCost_lteq}
+              className="
+                h-10
+                border
+                mt-1
+                rounded
+                px-4
+                w-full
+                shadow
+                text-gray-700 
+                leading-tight 
+              "
             />
-          </div>    
+          </div>
           <div className="col-span-1 flex items-center">
-            <label htmlFor="q[Btitle_or_body_cont]">カテゴリー</label>
+            <label htmlFor="piety_category">カテゴリー</label>
           </div>
           <div className="col-span-5">
             <Select
-              id="q[piety_category_id_in][]"
+              inputId="piety_category"
               name="q[piety_category_id_in][]"
               isMulti
               options={categoryOptions}
@@ -117,11 +147,11 @@ const ArticleSearchModal = () => {
           </div>
 
           <div className="col-span-1 flex items-center">
-            <label htmlFor="q[Btitle_or_body_cont]">ターゲット</label>
+            <label htmlFor="piety_target">ターゲット</label>
           </div>
           <div className="col-span-5">
             <Select
-              id="q[piety_target_id_in][]"
+              inputId="piety_target"
               name="q[piety_target_id_in][]"
               isMulti
               options={targetOptions}
@@ -137,6 +167,10 @@ const ArticleSearchModal = () => {
           submit
         />
       </div>
+      {q == undefined
+        ? null
+        : <div className="mt-8 text-center">検索結果： {pagination_info.total_count}件</div>
+      }
     </Form>
   );
 
@@ -148,17 +182,17 @@ const ArticleSearchModal = () => {
           onClickIcon={() => setShowModal(true)}
         />
       </div>
-      {showModal ? 
-        <Modal 
+      {showModal ?
+        <Modal
           isOpen={showModal}
-          title="article検索"
+          title="C o c o検索"
           body={body}
-          onClose={()=>setShowModal(false)}
+          onClose={() => setShowModal(false)}
         />
         : null
       }
     </>
   );
 }
- 
+
 export default ArticleSearchModal;

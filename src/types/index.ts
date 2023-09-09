@@ -177,3 +177,11 @@ export type PaginationInfo = {
   total_count : number;
   total_pages : number;
 }
+
+export type ArticleQParams = {
+  cost_gteq : string;
+  cost_lteq : string;
+  piety_category_id_in : string[];
+  piety_target_id_in : string[];
+  title_or_body_cont : string;
+}
