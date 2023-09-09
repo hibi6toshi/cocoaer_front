@@ -185,3 +185,11 @@ export type ArticleQParams = {
   piety_target_id_in : string[];
   title_or_body_cont : string;
 }
+
+export type ProjectQParams = {
+  cost_gteq : string;
+  cost_lteq : string;
+  piety_category_id_in : string[];
+  piety_target_id_in : string[];
+  title_or_body_cont : string;
+}
