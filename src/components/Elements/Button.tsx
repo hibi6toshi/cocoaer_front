@@ -5,6 +5,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   rounded_full?: boolean;
+  submit? :boolean;
 }
 
 const Button:React.FC<ButtonProps> = ({
@@ -14,12 +15,13 @@ const Button:React.FC<ButtonProps> = ({
   outline,
   small,
   rounded_full,
+  submit
 }) => {
   return (
     <button 
       onClick={onClick}
       disabled={disabled}
-      type="button"
+      type={submit ? 'submit' : 'button' }
       className={`
         relative
         disabled:opacity-70
