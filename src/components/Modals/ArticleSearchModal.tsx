@@ -143,9 +143,9 @@ const ArticleSearchModal = () => {
               isMulti
               options={categoryOptions}
               defaultValue={categoryDefaultValue}
+              placeholder="選択してください"
             />
           </div>
-
           <div className="col-span-1 flex items-center">
             <label htmlFor="piety_target">ターゲット</label>
           </div>
@@ -156,6 +156,7 @@ const ArticleSearchModal = () => {
               isMulti
               options={targetOptions}
               defaultValue={targetDefaultValue}
+              placeholder="選択してください"
             />
           </div>
         </div>
