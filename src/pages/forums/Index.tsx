@@ -16,25 +16,6 @@ const IndexPage = () => {
   const {forums, pagination_info} = useLoaderData() as {forums: Forum[], pagination_info: PaginationInfo};
   const navigate = useNavigate();
 
-  if (forums.length === 0 ){
-    return (
-      <div className="flex justify-center">
-        <div>
-          <div className="w-40">
-            <Button 
-              label="新規作成"
-              onClick={()=>navigate("/forums/new")}
-              rounded_full
-            />
-          </div>
-          <div className="mt-32 font-bold text-lg">
-            "No Forums found"
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return ( 
     <>
       <div className="flex justify-center">
