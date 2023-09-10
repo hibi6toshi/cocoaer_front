@@ -20,7 +20,7 @@ describe("Event", ()=>{
     );
 
     render(<RouterProvider router={router} />);
-    const articlesLink = screen.getByText("articles");
+    const articlesLink = screen.getByText("C o c o");
 
     act(() => {
       userEvent.click(articlesLink);
@@ -46,7 +46,7 @@ describe("Event", ()=>{
     );
 
     render(<RouterProvider router={router} />);
-    const projectsLink = screen.getByText("projects");
+    const projectsLink = screen.getByText("プロジェクト");
 
     act(() => {
       userEvent.click(projectsLink);
@@ -72,7 +72,7 @@ describe("Event", ()=>{
     );
 
     render(<RouterProvider router={router} />);
-    const forumsLink = screen.getByText("forums");
+    const forumsLink = screen.getByText("フォーラム");
 
     act(() => {
       userEvent.click(forumsLink);
