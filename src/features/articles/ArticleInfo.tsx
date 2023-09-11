@@ -112,6 +112,7 @@ const ArticleInfo: React.FC<ArticleInfoProps> = ({
           piety_category_id={article.piety_category_id}
           days={article.days}
           cost={article.cost}
+          infoAbout="articles"
         />
       </div>
       <div className="my-4">

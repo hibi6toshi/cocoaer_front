@@ -114,6 +114,7 @@ const ForumInfo: React.FC<ForumInfoProps> = ({
             piety_category_id={forum.piety_category_id}
             days={forum.days}
             cost={forum.cost}
+            infoAbout="forums"
           />
         </div>
       </div>
