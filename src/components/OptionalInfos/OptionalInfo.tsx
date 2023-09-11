@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import useCategorys from "../../hooks/useCategorys";
 import useTargets from "../../hooks/useTargets";
+import { ReactEventHandler } from "react";
 
 
 interface OptionalInfoProps {
@@ -8,6 +10,7 @@ interface OptionalInfoProps {
   days?: number;
   cost?: number;
   limit_day?: string;
+  infoAbout: "articles" | "projects" | "forums";
 }
 
 const OptionalInfo: React.FC<OptionalInfoProps> = ({
@@ -16,18 +19,31 @@ const OptionalInfo: React.FC<OptionalInfoProps> = ({
   days,
   limit_day,
   cost,
+  infoAbout,
 }) => {
   const { getCategoryName } = useCategorys();
   const { getTargetName } = useTargets();
 
+  const genSearchUrl = (base: string, qParam: string, value: number): string => {
+    return encodeURI(`/${base}?${qParam}=${value}`)
+  }
+
+  const stopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation()
+  }
+
   return ( 
     <div className="">
-      <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block">
-        {getTargetName(piety_target_id)}
-      </span>
-      <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block">
-        {getCategoryName(piety_category_id)}
-      </span>
+      <Link to={genSearchUrl(infoAbout, 'q[piety_target_id_in][]', piety_target_id)} onClick={stopPropagation }>
+        <span data-testid="piety_target_link" className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block cursor-pointer hover:underline transition hover:shadow-lg hover:scale-105">
+          {getTargetName(piety_target_id)}
+        </span>
+      </Link>
+      <Link to={genSearchUrl(infoAbout, 'q[piety_category_id_in][]', piety_category_id)} onClick={stopPropagation}>
+        <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block cursor-pointer hover:underline transition hover:shadow-lg hover:scale-105">
+          {getCategoryName(piety_category_id)}
+        </span>
+      </Link>
 
       { days != null && (
         <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block">
@@ -42,9 +58,11 @@ const OptionalInfo: React.FC<OptionalInfoProps> = ({
       }
       
       { cost != null && (
-        <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block">
-        ¥{cost}
-        </span>
+        <Link to={genSearchUrl(infoAbout, 'cost_lteq', cost)} onClick={stopPropagation}>
+          <span className="rounded-full bg-gray-500 bg-opacity-20 p-1 px-2 mr-3 mb-3 display: inline-block cursor-pointer hover:underline transition hover:shadow-lg hover:scale-105">
+            ¥{cost}
+          </span>
+        </Link>
       )}
     </div>
    );
