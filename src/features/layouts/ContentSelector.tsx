@@ -1,9 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 const ContentSelector = () => {
-  
-  return ( 
-    <div className="cursor-pointer rounded-full p-0 shadow-sm transition hover:shadow-md w-auto">
+  return (
+    <div className="cursor-pointer rounded-full p-0 shadow-sm transition hover:shadow-md w-auto min-w-max">
       <div className="flex flex-row items-center justify-between">
         <NavLink
           to="/articles"
@@ -17,6 +16,8 @@ const ContentSelector = () => {
             duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
             ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
+            text-xs
+            sm:text-sm
             `
           }
         >
@@ -33,6 +34,8 @@ const ContentSelector = () => {
             duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
             ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
+            text-xs
+            sm:text-sm
             `
           }
         >
@@ -50,6 +53,8 @@ const ContentSelector = () => {
             duration-300
             ${isActive ? "bg-yellow-800 bg-opacity-75" : "bg-white"}
             ${isActive ? "text-white" : "hover:bg-gray-200 bg-opacity-75" }
+            text-xs
+            sm:text-sm
             `
           }
         >
