@@ -25,6 +25,7 @@ const IndexPage = () => {
               label="新規作成"
               onClick={()=>navigate("/projects/new")}
               rounded_full
+              small
             />
           </div>
           <ProjectSearchModal />
@@ -33,9 +34,14 @@ const IndexPage = () => {
 
       { projects.length === 0
         ? 
-          <div className="flex justify-center mt-32 font-bold text-lg">
-            "No Project found..."
-          </div>
+          <>
+            <div className="flex justify-center mt-32 font-bold text-lg">
+              No Project found...
+            </div>
+            <div className="flex justify-center mt-10 font-bold text-lg">
+              It's your turn.
+            </div>
+          </>
         :
           <>
             <div className="

@@ -110,9 +110,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           :
             <></>
         }
-        
-        <div>{ getCategoryName(project.piety_target_id) }</div>
-        <div>{ getTargetName(project.piety_category_id)}</div>
+        <div>{ getCategoryName(project.piety_category_id) }</div>
+        <div>{ getTargetName(project.piety_target_id) }</div>
       </div>
     </div>
    );
