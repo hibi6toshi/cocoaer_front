@@ -25,6 +25,7 @@ const IndexPage = () => {
               label="新規作成"
               onClick={()=>navigate("/articles/new")}
               rounded_full
+              small
             />
           </div>
           <ForumSearchModal />
@@ -32,9 +33,14 @@ const IndexPage = () => {
       </div>
       { forums.length === 0
         ?
-          <div className="flex justify-center mt-32 font-bold text-lg">
-            "No forum found..."
-          </div>
+          <>
+            <div className="flex justify-center mt-32 font-bold text-lg">
+              No forum found...
+            </div>
+            <div className="flex justify-center mt-10 font-bold text-lg">
+              It's your turn.
+            </div>
+          </>
         :
           <>
             <div className="
