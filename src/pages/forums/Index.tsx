@@ -9,7 +9,7 @@ import ForumSearchModal from "../../components/Modals/ForumSearchModal";
 export const loader: LoaderFunction = async ({ request } :LoaderFunctionArgs) => {
   const forums = await getForums((new URL(request.url)));
 
-  return {forums: forums.data, pagination_info: forums.pagination_info };
+  return {forums: forums.data, pagination_info: forums.pagination_info, q: forums.q };
 } 
 
 const IndexPage = () => {
