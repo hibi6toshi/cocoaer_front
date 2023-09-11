@@ -23,12 +23,12 @@ const ProjectSearchModal = () => {
 
   const categoryDefaultValue: Option[] | null =
     categoryOptions?.filter((category: Option) => (
-      q?.piety_category_id_in.includes(category.value)
+      q?.piety_category_id_in?.includes(category.value)
     ))
 
   const targetDefaultValue: Option[] | null =
     targetOptions?.filter((target: Option) => (
-      q?.piety_target_id_in.includes(target.value)
+      q?.piety_target_id_in?.includes(target.value)
     ))
 
   const deleteHeadZero = (eTgtVal: string): string => {
