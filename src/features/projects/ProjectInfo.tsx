@@ -110,6 +110,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({
           piety_category_id={project.piety_category_id}
           limit_day={project.limit_day}
           cost={project.cost}
+          infoAbout="projects"
         />
       </div>
       <div className="rounded-xl border-[1px] p-4 my-4">

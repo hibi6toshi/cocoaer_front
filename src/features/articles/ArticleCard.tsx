@@ -105,6 +105,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           piety_category_id={article.piety_category_id}
           piety_target_id={article.piety_target_id}
           days={article.days}
+          infoAbout = "articles"
         />
       </div>
     </div>
