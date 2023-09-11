@@ -159,18 +159,20 @@ const ShowPage = () => {
         <UserInfoHeader user={profile}/>
         
         <div className="flex justify-center mt-40">
-          <div className="w-40 mx-20">
+          <div className="w-20 mx-5 md:w-40 md:mx-20">
             <Button 
               label="編集する"
               onClick={onClickModeButton}
+              small
             />
           </div>
 
-          <div className="w-40 mx-20">
+          <div className="w-20 mx-5 md:w-40 md:mx-20">
             <Button 
               label="退会する"
               onClick={deleteUserAction}
               outline
+              small
             />
           </div>
         </div>
