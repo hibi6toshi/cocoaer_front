@@ -159,6 +159,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
               value={project.title}
               required
               onChange={onChangeTitle}
+              maxLength={30}
             />
           </div>
 

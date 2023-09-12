@@ -180,6 +180,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
                 value={article.title}
                 required
                 onChange={onChangeTitle}
+                maxLength={30}
               />
             </div>
             <div className="thumbnail-wrapper mb-10">
