@@ -164,6 +164,7 @@ const ForumForm: React.FC<ForumFormProps> = ({
               value={forum.title}
               required
               onChange={onChangeTitle}
+              maxLength={30}
             />
           </div>
           <hr className="my-6"/>

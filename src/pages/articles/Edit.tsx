@@ -83,12 +83,14 @@ const EditPage = () => {
       }
     }
 
-
-
     formData.append("article[piety_category_id]", formArticle.piety_category_id);
     formData.append("article[piety_target_id]", formArticle.piety_target_id);
-    if (formArticle.days) formData.append("article[days]", formArticle.days);
-    if (formArticle.cost) formData.append("article[cost]", formArticle.cost);
+
+    formData.append("article[days]", formArticle.days)
+    formData.append("article[cost]", formArticle.cost)
+    // 元々取得したformArticle.days が nullの場合、nullで送ってしまうとRailsで0扱いされるので、nullの場合は文字なしで送る。 costも同様
+    if(formArticle.days==null){ formData.append("article[days]", '');} 
+    if(formArticle.cost==null){ formData.append("article[cost]", '');} 
 
     await toast.promise(
       updateArticle(token, articleId, formData), 

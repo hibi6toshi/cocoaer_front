@@ -78,6 +78,8 @@ const EditPage = () => {
     formData.append("project_form[cost]", formProject.cost);
     formData.append("project_form[tasks]", JSON.stringify(formProject.tasks));
     formData.append("project_form[actions]", JSON.stringify(formProject.actions));
+    // 元々取得したformProject.cost が nullの場合、nullで送ってしまうとRailsで0扱いされるので、nullの場合は文字なしで送る。
+    if(formProject.cost==null){ formData.append("project_form[cost]", '');} 
 
     await toast.promise(
       updateProject(token, projectId ,formData), 

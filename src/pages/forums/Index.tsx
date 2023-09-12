@@ -23,7 +23,7 @@ const IndexPage = () => {
           <div className="w-60">
             <Button 
               label="新規作成"
-              onClick={()=>navigate("/articles/new")}
+              onClick={()=>navigate("/forums/new")}
               rounded_full
               small
             />
