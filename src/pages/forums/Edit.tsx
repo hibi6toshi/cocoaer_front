@@ -74,6 +74,9 @@ const EditPage = () => {
     formData.append("forum[piety_target_id]", formForum.piety_target_id);
     formData.append("forum[days]", formForum.days);
     formData.append("forum[cost]", formForum.cost);
+    // 元々取得したformForum.days が nullの場合、nullで送ってしまうとRailsで0扱いされるので、nullの場合は文字なしで送る。 costも同様
+    if(formForum.days==null){ formData.append("forum[days]", '');} 
+    if(formForum.cost==null){ formData.append("forum[cost]", '');} 
     
     await toast.promise(
       updateForum(token, forumId, formData), 
