@@ -235,6 +235,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                   mb-2
                   text-gray-700 
                   leading-tight
+                  w-full
+                  sm:w-fit
                 " 
                 id="ProjectDays" 
                 type="date" 
@@ -243,7 +245,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                 value={project.limit_day}
                 onChange={onChangeLimitDays}
                 onBlur={onBlurDays}
-              />日
+              />
             </div>
             <div>
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ProjectCost">
@@ -251,7 +253,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
               </label>
               <input
                 className="
-                  display: inline
+                  ddisplay: inline
                   text-right
                   shadow
                   appearance-none
@@ -261,7 +263,9 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                   px-3
                   mb-2
                   text-gray-700 
-                  
+                  leading-tight
+                  w-full
+                  sm:w-fit
                 " 
                 id="ProjectCost" 
                 type="text" 

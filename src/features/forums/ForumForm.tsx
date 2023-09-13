@@ -211,6 +211,8 @@ const ForumForm: React.FC<ForumFormProps> = ({
                   mb-2
                   text-gray-700 
                   leading-tight
+                  w-full
+                  sm:w-fit
                 " 
                 id="ForumDays" 
                 type="text" 
@@ -237,7 +239,8 @@ const ForumForm: React.FC<ForumFormProps> = ({
                   px-3
                   mb-2
                   text-gray-700 
-                  
+                  w-full
+                  sm:w-fit
                 " 
                 id="ForumCost" 
                 type="text" 
