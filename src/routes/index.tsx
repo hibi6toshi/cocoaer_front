@@ -49,7 +49,7 @@ export const appRoutes = createBrowserRouter([
     errorElement: <div>Ooooooops</div>,
     children: [
       {
-        errorElement: <div>Oops! There was an error.</div>,
+        errorElement: <div className="flex justify-center mt-32 font-bold text-lg">Oops! There was an error...</div>,
         children: [
           {
             index: true, 
@@ -124,244 +124,87 @@ export const appRoutes = createBrowserRouter([
             element: <AuthenticationGuard component={ForumNewPage} />
           },
           {
-          path: '',
-          element: <AuthenticationGuardWithOutlet />,
-            // 以下のpathではLoader/Actionは使わない（useAuth0フックを使う必要があるため、各ReactComponent内で済ます。）
-          children: [
-            {
-              path: "myposts",
-              element: <MyPostIndex />,
-              children: [
-                {
-                  index: true,
-                  element: <div>mypost_index</div>,
-                  loader: () => {return redirect("articles")},
-                },
-                {
-                  path: "articles",
-                  element: <MyPostShow contentType="Article" />
-                },
-                {
-                  path: "projects",
-                  element: <MyPostShow contentType="Project" />
-                },
-                {
-                  path: "forums",
-                  element: <MyPostShow contentType="Forum" />
-                },
-              ]
-            },
-            {
-              path: "favorites",
-              element: <FavoriteIndex />,
-              children: [
-                {
-                  index: true,
-                  element: <div>favorite_index</div>,
-                  loader: () => {return redirect("articles")},
-                },
-                {
-                  path: "articles",
-                  element: <FavotiteShow favoritableType="Article" />
-                },
-                {
-                  path: "projects",
-                  element: <FavotiteShow favoritableType="Project" />
-                },
-                {
-                  path: "forums",
-                  element: <FavotiteShow favoritableType="Forum" />
-                },
-              ]
-            },
-            {
-              path: "users/:userId",
-              element: <UserIndex />,
-              children: [
-                {
-                  index: true,
-                  element: <div>user_index</div>,
-                  loader: () => {return redirect("articles")},
-                },
-                {
-                  path: "articles",
-                  element: <UserShow contentType="Article"/>
-                },
-                {
-                  path: "projects",
-                  element: <UserShow contentType="Project"/>
-                },
-                {
-                  path: "forums",
-                  element: <UserShow contentType="Forum"/>
-                },
-              ]
-            },
-            {
-              path: "profile",
-              element: <ProfileShow />,
-            },
-          ]
-          },
+            path: '',
+            element: <AuthenticationGuardWithOutlet />,
+              // 以下のpathではLoader/Actionは使わない（useAuth0フックを使う必要があるため、各ReactComponent内で済ます。）
+            children: [
+              {
+                path: "myposts",
+                element: <MyPostIndex />,
+                children: [
+                  {
+                    index: true,
+                    element: <div>mypost_index</div>,
+                    loader: () => {return redirect("articles")},
+                  },
+                  {
+                    path: "articles",
+                    element: <MyPostShow contentType="Article" />
+                  },
+                  {
+                    path: "projects",
+                    element: <MyPostShow contentType="Project" />
+                  },
+                  {
+                    path: "forums",
+                    element: <MyPostShow contentType="Forum" />
+                  },
+                ]
+              },
+              {
+                path: "favorites",
+                element: <FavoriteIndex />,
+                children: [
+                  {
+                    index: true,
+                    element: <div>favorite_index</div>,
+                    loader: () => {return redirect("articles")},
+                  },
+                  {
+                    path: "articles",
+                    element: <FavotiteShow favoritableType="Article" />
+                  },
+                  {
+                    path: "projects",
+                    element: <FavotiteShow favoritableType="Project" />
+                  },
+                  {
+                    path: "forums",
+                    element: <FavotiteShow favoritableType="Forum" />
+                  },
+                ]
+              },
+              {
+                path: "users/:userId",
+                element: <UserIndex />,
+                children: [
+                  {
+                    index: true,
+                    element: <div>user_index</div>,
+                    loader: () => {return redirect("articles")},
+                  },
+                  {
+                    path: "articles",
+                    element: <UserShow contentType="Article"/>
+                  },
+                  {
+                    path: "projects",
+                    element: <UserShow contentType="Project"/>
+                  },
+                  {
+                    path: "forums",
+                    element: <UserShow contentType="Forum"/>
+                  },
+                ]
+              },
+              {
+                path: "profile",
+                element: <ProfileShow />,
+              },
             ]
           },
         ]
-    // children: [
-    //   {
-    //     index: true, 
-    //     errorElement: <div>Oops! There was an error.</div>,
-    //     element: <IndexPage />,
-    //   },
-    //   {
-    //     path: "privacypolicy",
-    //     element: <PrivacyPolicy />
-    //   },
-    //   {
-    //     path: "termsOfService",
-    //     element: <TermsOfService />
-    //   },
-    //   {
-    //     path: "contactPage",
-    //     element: <ContactPage />
-    //   },
-    //   {
-    //     path: "articles",
-    //     element: <ArticleIndexPage />,
-    //     loader: ArticleIndexLoader,
-    //   },
-    //   {
-    //     path: "articles/:articleId",
-    //     element: <ArticleShowPage />,
-    //     // element: <AuthenticationGuard component={ArticleShowPage} />,
-    //     loader: ArticleShowLoader,
-    //   },
-    //   {
-    //     path: "articles/new",
-    //     element: <AuthenticationGuard component={ArticleNewPage} />
-    //   },
-    //   {
-    //     path: "articles/:articleId/edit",
-    //     element: <AuthenticationGuard component={ArticleEditPage} />,
-    //   },
-    //   {
-    //     path: "articles/:artilceId/destroy",
-    //   },
-    //   {
-    //     path: "projects",
-    //     element: <ProjectIndexPage />,
-    //     loader: ProjectsIndexLoader,
-    //   },
-    //   {
-    //     path: "projects/new",
-    //     element: <AuthenticationGuard component={ProjectNewPage} />,
-    //   },
-    //   {
-    //     path: "projects/:projectId",
-    //     element: <AuthenticationGuard component={ProjectShowPage} />,
-    //   },
-    //   {
-    //     path: "projects/:projectId/edit",
-    //     element: <AuthenticationGuard component={ProjectEditPage} />,
-    //   },
-    //   {
-    //     path: "forums",
-    //     element: <ForumsIndexPage />,
-    //     loader: ForumsIndexLoader,
-    //   },
-    //   {
-    //     path: "forums/:forumId",
-    //     element: <AuthenticationGuard component={ForumShowPage} />,
-    //   },
-    //   {
-    //     path: "forums/:forumId/edit",
-    //     element: <AuthenticationGuard component={ForumEditPage} />,
-    //   },
-    //   {
-    //     path: "forums/new",
-    //     element: <AuthenticationGuard component={ForumNewPage} />
-    //   },
-    //   {
-    //    path: '',
-    //    element: <AuthenticationGuardWithOutlet />,
-    //     // 以下のpathではLoader/Actionは使わない（useAuth0フックを使う必要があるため、各ReactComponent内で済ます。）
-    //    children: [
-    //     {
-    //       path: "myposts",
-    //       element: <MyPostIndex />,
-    //       children: [
-    //         {
-    //           index: true,
-    //           element: <div>mypost_index</div>,
-    //           loader: () => {return redirect("articles")},
-    //         },
-    //         {
-    //           path: "articles",
-    //           element: <MyPostShow contentType="Article" />
-    //         },
-    //         {
-    //           path: "projects",
-    //           element: <MyPostShow contentType="Project" />
-    //         },
-    //         {
-    //           path: "forums",
-    //           element: <MyPostShow contentType="Forum" />
-    //         },
-    //       ]
-    //     },
-    //     {
-    //       path: "favorites",
-    //       element: <FavoriteIndex />,
-    //       children: [
-    //         {
-    //           index: true,
-    //           element: <div>favorite_index</div>,
-    //           loader: () => {return redirect("articles")},
-    //         },
-    //         {
-    //           path: "articles",
-    //           element: <FavotiteShow favoritableType="Article" />
-    //         },
-    //         {
-    //           path: "projects",
-    //           element: <FavotiteShow favoritableType="Project" />
-    //         },
-    //         {
-    //           path: "forums",
-    //           element: <FavotiteShow favoritableType="Forum" />
-    //         },
-    //       ]
-    //     },
-    //     {
-    //       path: "users/:userId",
-    //       element: <UserIndex />,
-    //       children: [
-    //         {
-    //           index: true,
-    //           element: <div>user_index</div>,
-    //           loader: () => {return redirect("articles")},
-    //         },
-    //         {
-    //           path: "articles",
-    //           element: <UserShow contentType="Article"/>
-    //         },
-    //         {
-    //           path: "projects",
-    //           element: <UserShow contentType="Project"/>
-    //         },
-    //         {
-    //           path: "forums",
-    //           element: <UserShow contentType="Forum"/>
-    //         },
-    //       ]
-    //     },
-    //     {
-    //       path: "profile",
-    //       element: <ProfileShow />,
-    //     },
-    //    ]
-    //   },
-    // ]
+      },
+    ]
   },
 ]);
-
-// TODO: ErrorBoundary かerrorelementのコンポーネント作成

@@ -14,7 +14,7 @@ const IndexPage = () => {
         <div className="p-10">
           <h2 className="font-bold h1 mt-20 mb-5 text-lg">Cocoaerについて</h2>
           <p className="mb-20">孝行をもっと身近に・手軽に・カジュアルに<br />
-            Cocoaerは孝行に特化したSNSです。</p>
+            Cocoaerは孝行に特化したCGMです。</p>
         </div>
         <hr className="mb-20"/>
 
